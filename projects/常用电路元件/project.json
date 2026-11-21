@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "title": "测试接线 · 常用电路元件",
+  "colors": {"external": "#9A4A16"},
+  "sheets": [
+    {"id": "P01", "title": "中间继电器与功率电阻"},
+    {"id": "P02", "title": "常用元件符号一览"}
+  ],
+  "instances": [
+    {"id": "relay", "reference": "K12", "template": "中间继电器-双常开@1", "sheet": "P01"},
+    {"id": "load", "reference": "R6", "template": "功率电阻@1", "sheet": "P01", "name": "黄金铝壳电阻", "note": "20 Ω / 100 W"},
+    {"id": "resistor", "reference": "R1", "template": "电阻@1", "sheet": "P02"},
+    {"id": "power_resistor", "reference": "R2", "template": "功率电阻@1", "sheet": "P02"},
+    {"id": "fuse", "reference": "F1", "template": "保险丝@1", "sheet": "P02"},
+    {"id": "diode", "reference": "D1", "template": "二极管@1", "sheet": "P02"},
+    {"id": "led", "reference": "D2", "template": "发光二极管@1", "sheet": "P02"},
+    {"id": "capacitor", "reference": "C1", "template": "电容@1", "sheet": "P02"},
+    {"id": "polarized_capacitor", "reference": "C2", "template": "极性电容@1", "sheet": "P02"},
+    {"id": "inductor", "reference": "L1", "template": "电感@1", "sheet": "P02"},
+    {"id": "no_button", "reference": "S1", "template": "常开按钮@1", "sheet": "P02"},
+    {"id": "nc_button", "reference": "S2", "template": "常闭按钮@1", "sheet": "P02"}
+  ],
+  "nets": [
+    {"name": "交流电源-24", "members": ["relay.NO1-A"], "external": true},
+    {"name": "K12至R6", "members": ["relay.NO1-B", "load.1"]},
+    {"name": "P7-3", "members": ["load.2"], "external": true},
+    {"name": "交流电源-0", "members": ["relay.NO2-A"], "external": true},
+    {"name": "P7-4", "members": ["relay.NO2-B"], "external": true},
+    {"name": "IV采样", "members": ["relay.COIL-A"], "external": true},
+    {"name": "模块电源-", "members": ["relay.COIL-B"], "external": true}
+  ]
+}

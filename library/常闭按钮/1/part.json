@@ -1,0 +1,22 @@
+{
+  "id": "常闭按钮",
+  "version": 1,
+  "name": "常闭按钮",
+  "model": "",
+  "fields": {
+    "name": "显示名称",
+    "reference": "位号",
+    "note": "型号或用途"
+  },
+  "ports": [
+    {
+      "id": "COM",
+      "name": "公共端"
+    },
+    {
+      "id": "NC",
+      "name": "常闭端"
+    }
+  ],
+  "min_scale": 0.8
+}

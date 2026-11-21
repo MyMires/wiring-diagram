@@ -6,7 +6,7 @@
   "instances": [
     {
       "id": "valve",
-      "template": "air-valve-control@1",
+      "template": "气阀控制@1",
       "reference": "VALVE1",
       "sheet": "P01",
       "parameters": {"left_start": 12, "right_start": 13, "limit_switch": 14, "emergency_stop": 15}

@@ -1,0 +1,25 @@
+{
+  "id": "中间继电器",
+  "version": 1,
+  "name": "中间继电器",
+  "model": "2组转换触点",
+  "fields": {"name": "显示名称", "reference": "位号", "note": "图面备注"},
+  "parameters": {
+    "channels": {"label": "转换触点组数", "min": 1, "max": 9, "default": 2}
+  },
+  "ports": [
+    {"id": "COM1", "name": "第 1 组 COM"},
+    {"id": "NC1", "name": "第 1 组 NC"},
+    {"id": "NO1", "name": "第 1 组 NO"},
+    {"id": "COM2", "name": "第 2 组 COM"},
+    {"id": "NC2", "name": "第 2 组 NC"},
+    {"id": "NO2", "name": "第 2 组 NO"},
+    {"id": "COIL-A", "name": "线圈 A 端"},
+    {"id": "COIL-B", "name": "线圈 B 端"}
+  ],
+  "notes": [
+    "每组有独立的公共端 COM、常开端 NO 和常闭端 NC，所有触点由同一线圈联动。符号画在未吸合位置。",
+    "端子 ID 表示图面的逻辑接口，实物端子编号和线圈规格按所用型号确认。"
+  ],
+  "min_scale": 0.85
+}

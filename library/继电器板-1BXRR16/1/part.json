@@ -1,0 +1,374 @@
+{
+  "id": "继电器板-1BXRR16",
+  "version": 1,
+  "name": "继电器板",
+  "model": "1BXRR16",
+  "fields": {
+    "name": "显示名称",
+    "reference": "位号",
+    "note": "图面备注"
+  },
+  "ports": [
+    {
+      "id": "1",
+      "physical_pin": "1",
+      "name": "NO"
+    },
+    {
+      "id": "2",
+      "physical_pin": "2",
+      "name": "COM1"
+    },
+    {
+      "id": "3",
+      "physical_pin": "3",
+      "name": "NC"
+    },
+    {
+      "id": "4",
+      "physical_pin": "4",
+      "name": "NO"
+    },
+    {
+      "id": "5",
+      "physical_pin": "5",
+      "name": "COM2"
+    },
+    {
+      "id": "6",
+      "physical_pin": "6",
+      "name": "NC"
+    },
+    {
+      "id": "7",
+      "physical_pin": "7",
+      "name": "NO"
+    },
+    {
+      "id": "8",
+      "physical_pin": "8",
+      "name": "COM3"
+    },
+    {
+      "id": "9",
+      "physical_pin": "9",
+      "name": "NC"
+    },
+    {
+      "id": "10",
+      "physical_pin": "10",
+      "name": "NO"
+    },
+    {
+      "id": "11",
+      "physical_pin": "11",
+      "name": "COM4"
+    },
+    {
+      "id": "12",
+      "physical_pin": "12",
+      "name": "NC"
+    },
+    {
+      "id": "13",
+      "physical_pin": "13",
+      "name": "NO"
+    },
+    {
+      "id": "14",
+      "physical_pin": "14",
+      "name": "COM5"
+    },
+    {
+      "id": "15",
+      "physical_pin": "15",
+      "name": "NC"
+    },
+    {
+      "id": "16",
+      "physical_pin": "16",
+      "name": "NO"
+    },
+    {
+      "id": "17",
+      "physical_pin": "17",
+      "name": "COM6"
+    },
+    {
+      "id": "18",
+      "physical_pin": "18",
+      "name": "NC"
+    },
+    {
+      "id": "19",
+      "physical_pin": "19",
+      "name": "NO"
+    },
+    {
+      "id": "20",
+      "physical_pin": "20",
+      "name": "COM7"
+    },
+    {
+      "id": "21",
+      "physical_pin": "21",
+      "name": "NC"
+    },
+    {
+      "id": "22",
+      "physical_pin": "22",
+      "name": "NO"
+    },
+    {
+      "id": "23",
+      "physical_pin": "23",
+      "name": "COM8"
+    },
+    {
+      "id": "24",
+      "physical_pin": "24",
+      "name": "NC"
+    },
+    {
+      "id": "25",
+      "physical_pin": "25",
+      "name": "COM1"
+    },
+    {
+      "id": "26",
+      "physical_pin": "26",
+      "name": "X1"
+    },
+    {
+      "id": "27",
+      "physical_pin": "27",
+      "name": "X2"
+    },
+    {
+      "id": "28",
+      "physical_pin": "28",
+      "name": "X3"
+    },
+    {
+      "id": "29",
+      "physical_pin": "29",
+      "name": "X4"
+    },
+    {
+      "id": "30",
+      "physical_pin": "30",
+      "name": "X5"
+    },
+    {
+      "id": "31",
+      "physical_pin": "31",
+      "name": "X6"
+    },
+    {
+      "id": "32",
+      "physical_pin": "32",
+      "name": "X7"
+    },
+    {
+      "id": "33",
+      "physical_pin": "33",
+      "name": "X8"
+    },
+    {
+      "id": "34",
+      "physical_pin": "34",
+      "name": "X9"
+    },
+    {
+      "id": "35",
+      "physical_pin": "35",
+      "name": "X10"
+    },
+    {
+      "id": "36",
+      "physical_pin": "36",
+      "name": "X11"
+    },
+    {
+      "id": "37",
+      "physical_pin": "37",
+      "name": "X12"
+    },
+    {
+      "id": "38",
+      "physical_pin": "38",
+      "name": "X13"
+    },
+    {
+      "id": "39",
+      "physical_pin": "39",
+      "name": "X14"
+    },
+    {
+      "id": "40",
+      "physical_pin": "40",
+      "name": "X15"
+    },
+    {
+      "id": "41",
+      "physical_pin": "41",
+      "name": "X16"
+    },
+    {
+      "id": "42",
+      "physical_pin": "42",
+      "name": "COM2"
+    },
+    {
+      "id": "43",
+      "physical_pin": "43",
+      "name": "GND"
+    },
+    {
+      "id": "44",
+      "physical_pin": "44",
+      "name": "VCC_OUT"
+    },
+    {
+      "id": "45",
+      "physical_pin": "45",
+      "name": "485A"
+    },
+    {
+      "id": "46",
+      "physical_pin": "46",
+      "name": "485B"
+    },
+    {
+      "id": "47",
+      "physical_pin": "47",
+      "name": "NO"
+    },
+    {
+      "id": "48",
+      "physical_pin": "48",
+      "name": "COM16"
+    },
+    {
+      "id": "49",
+      "physical_pin": "49",
+      "name": "NC"
+    },
+    {
+      "id": "50",
+      "physical_pin": "50",
+      "name": "NO"
+    },
+    {
+      "id": "51",
+      "physical_pin": "51",
+      "name": "COM15"
+    },
+    {
+      "id": "52",
+      "physical_pin": "52",
+      "name": "NC"
+    },
+    {
+      "id": "53",
+      "physical_pin": "53",
+      "name": "NO"
+    },
+    {
+      "id": "54",
+      "physical_pin": "54",
+      "name": "COM14"
+    },
+    {
+      "id": "55",
+      "physical_pin": "55",
+      "name": "NC"
+    },
+    {
+      "id": "56",
+      "physical_pin": "56",
+      "name": "NO"
+    },
+    {
+      "id": "57",
+      "physical_pin": "57",
+      "name": "COM13"
+    },
+    {
+      "id": "58",
+      "physical_pin": "58",
+      "name": "NC"
+    },
+    {
+      "id": "59",
+      "physical_pin": "59",
+      "name": "NO"
+    },
+    {
+      "id": "60",
+      "physical_pin": "60",
+      "name": "COM12"
+    },
+    {
+      "id": "61",
+      "physical_pin": "61",
+      "name": "NC"
+    },
+    {
+      "id": "62",
+      "physical_pin": "62",
+      "name": "NO"
+    },
+    {
+      "id": "63",
+      "physical_pin": "63",
+      "name": "COM11"
+    },
+    {
+      "id": "64",
+      "physical_pin": "64",
+      "name": "NC"
+    },
+    {
+      "id": "65",
+      "physical_pin": "65",
+      "name": "NO"
+    },
+    {
+      "id": "66",
+      "physical_pin": "66",
+      "name": "COM10"
+    },
+    {
+      "id": "67",
+      "physical_pin": "67",
+      "name": "NC"
+    },
+    {
+      "id": "68",
+      "physical_pin": "68",
+      "name": "NO"
+    },
+    {
+      "id": "69",
+      "physical_pin": "69",
+      "name": "COM9"
+    },
+    {
+      "id": "70",
+      "physical_pin": "70",
+      "name": "NC"
+    },
+    {
+      "id": "71",
+      "physical_pin": "71",
+      "name": "J14_VCC_IN"
+    },
+    {
+      "id": "72",
+      "physical_pin": "72",
+      "name": "J14_GND"
+    }
+  ],
+  "min_scale": 0.79
+}

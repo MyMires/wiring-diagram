@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "title": "测试接线图",
+  "source": "示例配置四组转换触点 · 前两组沿用参考图接线",
+  "colors": {"external": "#9A4A16"},
+  "sheets": [{"id": "P01", "title": "中间继电器"}],
+  "instances": [
+    {"id": "relay", "reference": "K1", "template": "中间继电器", "sheet": "P01", "parameters": {"channels": 4}}
+  ],
+  "nets": [
+    {"name": "UUT电源+", "members": ["relay.COM1"], "external": true},
+    {"name": "P4-1", "members": ["relay.NO1"], "external": true},
+    {"name": "UUT电源-", "members": ["relay.COM2"], "external": true},
+    {"name": "P4-3", "members": ["relay.NO2"], "external": true},
+    {"name": "控制电源", "members": ["relay.COIL-A"], "external": true},
+    {"name": "模块电源-", "members": ["relay.COIL-B"], "external": true}
+  ]
+}

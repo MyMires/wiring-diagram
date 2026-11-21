@@ -6,8 +6,8 @@
     {"id": "P01", "title": "RS485 通信接线"}
   ],
   "instances": [
-    {"id": "relay", "template": "1bxrr16@1", "reference": "D1", "name": "继电器板", "note": "1BXRR16 · 16 路 · 72 针", "sheet": "P01"},
-    {"id": "converter", "template": "rs485-rs232@1", "view": "photo", "reference": "X1", "name": "串口转接器", "note": "RS485 / RS232 · 实物接线", "sheet": "P01"}
+    {"id": "relay", "template": "继电器板-1BXRR16@1", "reference": "D1", "name": "继电器板", "note": "1BXRR16 · 16 路 · 72 针", "sheet": "P01"},
+    {"id": "converter", "template": "串口转接器-RS485转RS232@1", "view": "photo", "reference": "X1", "name": "串口转接器", "note": "RS485 / RS232 · 实物接线", "sheet": "P01"}
   ],
   "nets": [
     {"name": "RS485_A", "members": ["relay.45", "converter.A"]},

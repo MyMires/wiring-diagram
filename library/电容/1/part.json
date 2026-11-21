@@ -1,0 +1,22 @@
+{
+  "id": "电容",
+  "version": 1,
+  "name": "电容",
+  "model": "无极性",
+  "fields": {
+    "name": "显示名称",
+    "reference": "位号",
+    "note": "电容量和额定电压"
+  },
+  "ports": [
+    {
+      "id": "1",
+      "name": "一端"
+    },
+    {
+      "id": "2",
+      "name": "另一端"
+    }
+  ],
+  "min_scale": 0.8
+}

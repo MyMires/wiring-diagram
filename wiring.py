@@ -14,6 +14,17 @@ import pymupdf as pdf
 
 
 LIBRARY = Path(__file__).resolve().parent / "library"
+# Keep projects saved with the original template IDs loadable.
+LEGACY_TEMPLATE_IDS = {
+    "1bxrr16": "继电器板-1BXRR16",
+    "air-valve-control": "气阀控制",
+    "limit-switch": "行程开关",
+    "rs485-rs232": "串口转接器-RS485转RS232",
+    "switching-power-supply": "开关电源",
+    "usb-ttl": "USB转TTL模块",
+    "zhongsheng-relay-16in16out": "中盛16入16出继电器模块",
+    "zhongsheng-voltage-8ch": "中盛8通道电压采集模块",
+}
 TOKEN = re.compile(r"[a-zA-Z0-9_-]+\Z")
 TEMPLATE_TOKEN = re.compile(r"[\w-]+\Z")
 PORT_TOKEN = re.compile(r"[a-zA-Z0-9_+/-]+\Z")
@@ -130,6 +141,13 @@ def channel_symbol(layout, counts):
     return ET.tostring(root, encoding="utf-8")
 
 
+def shift_symbol_y(element, offset):
+    for node in element.iter():
+        for coord in ("y", "y1", "y2", "cy"):
+            if coord in node.attrib:
+                node.set(coord, f"{float(node.get(coord)) + offset:g}")
+
+
 def repeat_switch_symbol(symbol, ports, count, start):
     prototype = ET.parse(symbol).getroot()
     _, _, width, height = map(float, prototype.attrib["viewBox"].split())
@@ -140,11 +158,9 @@ def repeat_switch_symbol(symbol, ports, count, start):
         offset = index * height
         for original in prototype:
             element = deepcopy(original)
+            shift_symbol_y(element, offset)
             root.append(element)
             for node in element.iter():
-                for coord in ("y", "y1", "y2", "cy"):
-                    if coord in node.attrib:
-                        node.set(coord, f"{float(node.get(coord)) + offset:g}")
                 if (terminal := node.get("data-port")) is not None:
                     _, contact = terminal.split("-", 1)
                     pin = f"{label}-{contact}"
@@ -152,6 +168,46 @@ def repeat_switch_symbol(symbol, ports, count, start):
                     expanded[pin] = {**ports[terminal], "id": pin}
                 if node.get("data-switch-label") is not None:
                     node.text = label
+    ET.register_namespace("", SVG_NAMESPACE)
+    return ET.tostring(root, encoding="utf-8"), expanded
+
+
+def repeat_relay_symbol(symbol, ports, channels, pitch):
+    root = ET.parse(symbol).getroot()
+    _, _, width, height = map(float, root.attrib["viewBox"].split())
+    rows = [node for node in root if node.get("data-relay-channel") is not None]
+    coil = next((node for node in root if node.get("data-relay-coil") is not None), None)
+    linkage = next((node for node in root if node.get("data-relay-linkage") is not None), None)
+    outline = root.find(f"{{{SVG_NAMESPACE}}}rect")
+    require(rows and rows[0].get("data-relay-channel") == "1" and all(node is not None for node in (coil, linkage, outline)),
+            "继电器符号须包含第 1 组触点、线圈、联动线和外框")
+    prototype = rows[0]
+    row_index = list(root).index(prototype)
+    delta = (channels - len(rows)) * pitch
+    root.set("viewBox", f"0 0 {width:g} {height + delta:g}")
+    outline.set("height", f"{float(outline.attrib['height']) + delta:g}")
+    link_x = linkage.attrib["data-x"]
+    link_top = int(linkage.attrib["data-top"])
+    link_bottom = int(linkage.attrib["data-bottom"]) + delta
+    linkage.set("d", " ".join(f"M {link_x} {y} V {min(y + 3, link_bottom)}"
+                              for y in range(link_top, link_bottom, 6)))
+    shift_symbol_y(coil, delta)
+    expanded = {pin: ports[pin] for node in coil.iter() if (pin := node.get("data-port")) is not None}
+    for row in rows:
+        root.remove(row)
+    for channel in range(1, channels + 1):
+        row = deepcopy(prototype)
+        row.set("data-relay-channel", str(channel))
+        shift_symbol_y(row, (channel - 1) * pitch)
+        labels = {f"{contact}1": f"{contact}{channel}" for contact in ("COM", "NO", "NC")}
+        for node in row.iter():
+            if (pin := node.get("data-port")) is not None:
+                new_pin = labels[pin]
+                node.set("data-port", new_pin)
+                expanded[new_pin] = {**ports[pin], "id": new_pin, "name": f"第 {channel} 组 {pin[:-1]}"}
+            if node.text in labels:
+                node.text = labels[node.text]
+        root.insert(row_index + channel - 1, row)
     ET.register_namespace("", SVG_NAMESPACE)
     return ET.tostring(root, encoding="utf-8"), expanded
 
@@ -194,6 +250,9 @@ def load_template(identity, view=None, parameters=None, *, internal_color=DEFAUL
     require(TEMPLATE_TOKEN.fullmatch(model) and (not sep or version.isdecimal()),
             f"模板引用应为 型号 或 型号@版本 {identity!r}")
     model_dir = LIBRARY / model
+    if model in LEGACY_TEMPLATE_IDS and not model_dir.is_dir():
+        model = LEGACY_TEMPLATE_IDS[model]
+        model_dir = LIBRARY / model
     if not sep:
         versions = [path.parent.name for path in model_dir.glob("*/part.json")
                     if path.parent.name.isdecimal() and path.is_file()]
@@ -240,6 +299,8 @@ def load_template(identity, view=None, parameters=None, *, internal_color=DEFAUL
         repeat_switches = layout.get("repeat_switches", False)
         if repeat_switches:
             asset, ports = repeat_switch_symbol(symbol, ports, counts["count"], counts["start"])
+        elif "relay_pitch" in layout:
+            asset, ports = repeat_relay_symbol(symbol, ports, counts["channels"], layout["relay_pitch"])
         elif "labels" in layout:
             asset = label_symbol(symbol, layout["labels"], counts)
         else:

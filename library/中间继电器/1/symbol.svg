@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 202 128">
+  <rect x="18" y="2" width="166" height="124" rx="6" fill="#f2f7fa" stroke="#6a879b"/>
+  <path d="M 101 21 V 24 M 101 27 V 30 M 101 33 V 36 M 101 39 V 42 M 101 45 V 48 M 101 51 V 54 M 101 57 V 60 M 101 63 V 66 M 101 69 V 72 M 101 75 V 78 M 101 81 V 84 M 101 87 V 90 M 101 93 V 96"
+        fill="none" stroke="#8396a6" stroke-width=".75"
+        data-relay-linkage="true" data-x="101" data-top="21" data-bottom="96"/>
+
+  <g data-relay-channel="1">
+    <g fill="none" stroke="#285b7d" stroke-width="1.1" data-circuit-role="wire">
+      <line x1="4" x2="74" y1="28" y2="28"/>
+      <line x1="74" x2="128" y1="28" y2="15"/>
+      <line x1="128" x2="198" y1="15" y2="15"/>
+      <line x1="128" x2="198" y1="41" y2="41"/>
+    </g>
+    <g fill="#fff" stroke="#285b7d" stroke-width=".85" data-circuit-role="wire">
+      <circle cx="74" cy="28" r="1.7"/>
+      <circle cx="128" cy="15" r="1.7"/>
+      <circle cx="128" cy="41" r="1.7"/>
+      <circle cx="4" cy="28" r="2" data-port="COM1" data-side="left"/>
+      <circle cx="198" cy="15" r="2" data-port="NC1" data-side="right"/>
+      <circle cx="198" cy="41" r="2" data-port="NO1" data-side="right"/>
+    </g>
+    <g fill="#172b3c" font-family="DejaVu Sans, sans-serif" font-size="8.5">
+      <text x="26" y="23">COM1</text>
+      <text x="176" y="10" text-anchor="end">NC1</text>
+      <text x="176" y="36" text-anchor="end">NO1</text>
+    </g>
+    <line x1="19" x2="183" y1="49" y2="49" stroke="#b9ccd9" stroke-width=".6"/>
+  </g>
+
+  <g data-relay-channel="2">
+    <g fill="none" stroke="#285b7d" stroke-width="1.1" data-circuit-role="wire">
+      <line x1="4" x2="74" y1="72" y2="72"/>
+      <line x1="74" x2="128" y1="72" y2="59"/>
+      <line x1="128" x2="198" y1="59" y2="59"/>
+      <line x1="128" x2="198" y1="85" y2="85"/>
+    </g>
+    <g fill="#fff" stroke="#285b7d" stroke-width=".85" data-circuit-role="wire">
+      <circle cx="74" cy="72" r="1.7"/>
+      <circle cx="128" cy="59" r="1.7"/>
+      <circle cx="128" cy="85" r="1.7"/>
+      <circle cx="4" cy="72" r="2" data-port="COM2" data-side="left"/>
+      <circle cx="198" cy="59" r="2" data-port="NC2" data-side="right"/>
+      <circle cx="198" cy="85" r="2" data-port="NO2" data-side="right"/>
+    </g>
+    <g fill="#172b3c" font-family="DejaVu Sans, sans-serif" font-size="8.5">
+      <text x="26" y="67">COM2</text>
+      <text x="176" y="54" text-anchor="end">NC2</text>
+      <text x="176" y="80" text-anchor="end">NO2</text>
+    </g>
+    <line x1="19" x2="183" y1="93" y2="93" stroke="#b9ccd9" stroke-width=".6"/>
+  </g>
+
+  <g data-relay-coil="true">
+    <g fill="none" stroke="#285b7d" stroke-width="1.1" data-circuit-role="wire">
+      <line x1="4" x2="82" y1="108" y2="108"/>
+      <line x1="120" x2="198" y1="108" y2="108"/>
+      <rect x="82" y="96" width="38" height="24"/>
+    </g>
+    <g fill="#fff" stroke="#285b7d" stroke-width=".85" data-circuit-role="wire">
+      <circle cx="4" cy="108" r="2" data-port="COIL-A" data-side="left"/>
+      <circle cx="198" cy="108" r="2" data-port="COIL-B" data-side="right"/>
+    </g>
+    <g fill="#172b3c" font-family="DejaVu Sans, sans-serif" font-size="8.5">
+      <text x="26" y="103">COIL-A</text>
+      <text x="176" y="103" text-anchor="end">COIL-B</text>
+    </g>
+    <text x="101" y="111" text-anchor="middle" font-family="Noto Sans CJK SC, sans-serif"
+          font-size="8.5" fill="#465968" data-text-role="description">线圈</text>
+  </g>
+</svg>

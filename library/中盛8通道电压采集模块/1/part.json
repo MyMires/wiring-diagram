@@ -1,0 +1,39 @@
+{
+  "id": "中盛8通道电压采集模块",
+  "version": 1,
+  "name": "中盛电压采集模块",
+  "model": "8通道",
+  "fields": {
+    "name": "显示名称",
+    "reference": "位号",
+    "note": "图面备注",
+    "station": "站号文本"
+  },
+  "parameters": {
+    "channels": {"label": "电压采集通道数", "min": 1, "max": 8, "default": 8}
+  },
+  "ports": [
+    {"id": "DC+", "name": "DC+"},
+    {"id": "DC-", "name": "DC-"},
+    {"id": "A/H", "name": "A/H"},
+    {"id": "B/L", "name": "B/L"},
+    {"id": "PE", "name": "PE"},
+    {"id": "A1+", "name": "A1+"},
+    {"id": "A1-", "name": "A1-"},
+    {"id": "A2+", "name": "A2+"},
+    {"id": "A2-", "name": "A2-"},
+    {"id": "A3+", "name": "A3+"},
+    {"id": "A3-", "name": "A3-"},
+    {"id": "A4+", "name": "A4+"},
+    {"id": "A4-", "name": "A4-"},
+    {"id": "A5+", "name": "A5+"},
+    {"id": "A5-", "name": "A5-"},
+    {"id": "A6+", "name": "A6+"},
+    {"id": "A6-", "name": "A6-"},
+    {"id": "A7+", "name": "A7+"},
+    {"id": "A7-", "name": "A7-"},
+    {"id": "A8+", "name": "A8+"},
+    {"id": "A8-", "name": "A8-"}
+  ],
+  "min_scale": 0.85
+}

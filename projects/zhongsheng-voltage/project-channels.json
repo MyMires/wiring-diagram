@@ -4,8 +4,8 @@
   "source": "按参考模板裁减通道的排版示例",
   "sheets": [{"id": "P01", "title": "继电器与电压采集模块"}],
   "instances": [
-    {"id": "relay", "template": "zhongsheng-relay-16in16out@1", "reference": "K1", "sheet": "P01", "station": "01", "parameters": {"inputs": 8, "outputs": 8}},
-    {"id": "acquisition", "template": "zhongsheng-voltage-8ch@1", "reference": "M1", "sheet": "P01", "station": "02", "parameters": {"channels": 4}}
+    {"id": "relay", "template": "中盛16入16出继电器模块@1", "reference": "K1", "sheet": "P01", "station": "01", "parameters": {"inputs": 8, "outputs": 8}},
+    {"id": "acquisition", "template": "中盛8通道电压采集模块@1", "reference": "M1", "sheet": "P01", "station": "02", "parameters": {"channels": 4}}
   ],
   "nets": [
     {"name": "模块电源+", "members": ["relay.V+", "acquisition.DC+"]},

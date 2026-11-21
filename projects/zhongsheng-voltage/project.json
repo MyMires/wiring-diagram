@@ -11,13 +11,13 @@
   "instances": [
     {
       "id": "relay",
-      "template": "zhongsheng-relay-16in16out@1",
+      "template": "中盛16入16出继电器模块@1",
       "reference": "K1",
       "sheet": "P01"
     },
     {
       "id": "acquisition",
-      "template": "zhongsheng-voltage-8ch@1",
+      "template": "中盛8通道电压采集模块@1",
       "reference": "M1",
       "sheet": "P01"
     }

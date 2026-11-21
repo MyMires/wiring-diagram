@@ -7,14 +7,14 @@
   "instances": [
     {
       "id": "valve",
-      "template": "air-valve-control@1",
+      "template": "气阀控制@1",
       "reference": "VALVE1",
       "sheet": "P01",
       "parameters": {"left_start": 12, "right_start": 13, "limit_switch": 14, "emergency_stop": 15}
     },
-    {"id": "psu", "template": "switching-power-supply@1", "reference": "PS1", "sheet": "P01", "name": "UUT电源", "note": "15V1A"},
-    {"id": "adapter", "template": "usb-ttl@1", "reference": "USB1", "sheet": "P01"},
-    {"id": "switches", "template": "limit-switch@1", "reference": "S2-S3", "sheet": "P01", "parameters": {"count": 2, "start": 2}}
+    {"id": "psu", "template": "开关电源@1", "reference": "PS1", "sheet": "P01", "name": "UUT电源", "note": "15V1A"},
+    {"id": "adapter", "template": "USB转TTL模块@1", "reference": "USB1", "sheet": "P01"},
+    {"id": "switches", "template": "行程开关@1", "reference": "S2-S3", "sheet": "P01", "parameters": {"count": 2, "start": 2}}
   ],
   "nets": [
     {"name": "模块电源-", "members": ["valve.MODULE_PWR_NEG"], "external": true},
