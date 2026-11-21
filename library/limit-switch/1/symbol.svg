@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 48">
-  <g fill="none" stroke="#285b7d" stroke-width="1.1">
+  <g fill="none" stroke="#285b7d" stroke-width="1.1" data-circuit-role="wire">
     <line x1="4" x2="55" y1="25" y2="25"/>
     <line x1="55" x2="95" y1="25" y2="14"/>
     <line x1="95" x2="146" y1="14" y2="14"/>
     <line x1="95" x2="146" y1="36" y2="36"/>
   </g>
-  <g fill="#fff" stroke="#285b7d" stroke-width=".9">
+  <g fill="#fff" stroke="#285b7d" stroke-width=".9" data-circuit-role="wire">
     <circle cx="55" cy="25" r="2"/>
     <circle cx="95" cy="14" r="2"/>
     <circle cx="95" cy="36" r="2"/>
@@ -14,9 +14,9 @@
     <circle cx="146" cy="36" r="2" data-port="S1-1" data-side="right"/>
   </g>
   <g fill="#172b3c" font-family="DejaVu Sans, sans-serif" font-size="9">
-    <text x="34" y="21">2</text>
-    <text x="114" y="10">3</text>
-    <text x="114" y="32">1</text>
-    <text x="58" y="12" data-switch-label="true">S1</text>
+    <text x="34" y="21" data-text-role="terminal">2</text>
+    <text x="114" y="10" data-text-role="terminal">3</text>
+    <text x="114" y="32" data-text-role="terminal">1</text>
+    <text x="58" y="12" data-switch-label="true" data-text-role="reference">S1</text>
   </g>
 </svg>

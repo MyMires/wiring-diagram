@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 326 141">
+  <rect x="18" y="2" width="290" height="137" rx="6" fill="#f2f7fa" stroke="#6a879b"/>
+
+  <g fill="none" stroke="#285b7d" stroke-width="1.1" stroke-linejoin="round" data-circuit-role="wire">
+    <line x1="4" x2="74" y1="38" y2="38"/>
+    <path d="M 44 38 V 120 H 74 M 44 93 H 74"/>
+    <path d="M 74 38 L 104 27 H 120 M 104 48 H 124 V 38 H 144"/>
+    <path d="M 144 38 L 174 27 H 190 M 174 48 H 237"/>
+    <path d="M 74 93 L 99 83 M 102 93 H 203 V 48 M 74 120 L 99 110"/>
+    <line x1="102" x2="322" y1="120" y2="120"/>
+    <path d="M 237 48 L 267 36 M 267 60 H 283"/>
+    <line x1="267" x2="322" y1="36" y2="36"/>
+  </g>
+
+  <g fill="none" stroke="#8396a6" stroke-width=".7">
+    <path d="M 89 87 v 2 m 0 2 v 2 m 0 2 v 2 m 0 2 v 2 m 0 2 v 2 m 0 2 v 2 m 0 2 v 2"/>
+  </g>
+  <g fill="#285b7d" data-circuit-role="junction">
+    <circle cx="44" cy="38" r="1.7"/>
+    <circle cx="44" cy="93" r="1.7"/>
+    <circle cx="203" cy="48" r="1.7"/>
+  </g>
+  <g fill="#f2f7fa" stroke="#285b7d" stroke-width=".9" data-circuit-role="wire">
+    <circle cx="74" cy="38" r="1.8"/>
+    <circle cx="104" cy="27" r="1.8"/>
+    <circle cx="104" cy="48" r="1.8"/>
+    <circle cx="144" cy="38" r="1.8"/>
+    <circle cx="174" cy="27" r="1.8"/>
+    <circle cx="174" cy="48" r="1.8"/>
+    <circle cx="74" cy="93" r="1.8"/>
+    <circle cx="102" cy="93" r="1.8"/>
+    <circle cx="74" cy="120" r="1.8"/>
+    <circle cx="102" cy="120" r="1.8"/>
+    <circle cx="237" cy="48" r="1.8"/>
+    <circle cx="267" cy="36" r="1.8"/>
+    <circle cx="267" cy="60" r="1.8"/>
+  </g>
+  <g fill="#fff" stroke="#285b7d" stroke-width=".9">
+    <circle cx="4" cy="38" r="2" data-port="MODULE_PWR_NEG" data-side="left"/>
+    <circle cx="322" cy="36" r="2" data-port="SOLENOID_NEG" data-side="right"/>
+    <circle cx="322" cy="120" r="2" data-port="LIMIT_DETECT" data-side="right"/>
+  </g>
+
+  <g font-family="DejaVu Sans, sans-serif" font-size="8.5">
+    <text x="73" y="16" data-parameter-label="left_start" data-text-role="reference">S2</text>
+    <text x="143" y="16" data-parameter-label="right_start" data-text-role="reference">S3</text>
+    <text x="73" y="78" data-parameter-label="limit_switch" data-text-role="reference">S4</text>
+    <text x="236" y="17" data-parameter-label="emergency_stop" data-text-role="emergency">S5</text>
+  </g>
+  <g font-family="DejaVu Sans, sans-serif" font-size="7.5">
+    <text x="70" y="34" text-anchor="end" data-text-role="terminal">COM</text>
+    <text x="108" y="23" data-text-role="terminal">NC</text>
+    <text x="108" y="45" data-text-role="terminal">NO</text>
+    <text x="140" y="34" text-anchor="end" data-text-role="terminal">COM</text>
+    <text x="178" y="23" data-text-role="terminal">NC</text>
+    <text x="178" y="45" data-text-role="terminal">NO</text>
+    <text x="233" y="44" text-anchor="end" data-text-role="terminal">COM</text>
+    <text x="270" y="31" data-text-role="terminal">NC</text>
+    <text x="270" y="57" data-text-role="terminal">NO</text>
+  </g>
+  <g font-family="Noto Sans CJK SC, sans-serif" font-size="8.5" text-anchor="middle">
+    <text x="33" y="32" data-text-role="interface">电源-</text>
+    <text x="288" y="48" data-text-role="interface">电磁阀-</text>
+    <text x="285" y="114" data-text-role="interface">行程检测</text>
+    <text x="91" y="64" data-text-role="description">左启动测试按钮</text>
+    <text x="161" y="64" data-text-role="description">右启动测试按钮</text>
+    <text x="88" y="133" data-text-role="description">行程开关 · 双路联动</text>
+    <text x="251" y="78" data-text-role="emergency">急停开关</text>
+  </g>
+</svg>

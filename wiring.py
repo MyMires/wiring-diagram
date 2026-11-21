@@ -15,14 +15,21 @@ import pymupdf as pdf
 
 LIBRARY = Path(__file__).resolve().parent / "library"
 TOKEN = re.compile(r"[a-zA-Z0-9_-]+\Z")
+TEMPLATE_TOKEN = re.compile(r"[\w-]+\Z")
 PORT_TOKEN = re.compile(r"[a-zA-Z0-9_+/-]+\Z")
+COLOR_TOKEN = re.compile(r"#[0-9a-fA-F]{6}\Z")
+DEFAULT_WIRING_COLOR = "#1c5c94"
 INK = (0.09, 0.16, 0.23)
 MUTED = (0.31, 0.39, 0.47)
 RULE = (0.75, 0.80, 0.84)
-NET = (0.11, 0.36, 0.58)
-MARK = (0.71, 0.20, 0.14)
+PAGE_ACCENT = (0.11, 0.36, 0.58)
 PAPER = (0.97, 0.98, 0.99)
 WHITE = (1, 1, 1)
+SYMBOL_TEXT_COLORS = {
+    "reference": "#172b3c",
+    "description": "#465968",
+    "emergency": "#a1273b",
+}
 SIDES = ("left", "right", "top", "bottom")
 FIELDS = ("name", "reference", "note")
 MODULE_GAP = 12
@@ -117,7 +124,7 @@ def channel_symbol(layout, counts):
         line(x, y, edge, y, "#6a879b", ".8")
         ET.SubElement(root, "circle", cx=f"{x:g}", cy=f"{y:g}", r="1.65", fill="#fff", stroke="#285b7d",
                       **{"stroke-width": ".7", "data-port": pin, "data-side": side})
-        label = ET.SubElement(root, "text", x=f"{tx:g}", y=f"{y+2.65:g}", fill="#172b3c",
+        label = ET.SubElement(root, "text", x=f"{tx:g}", y=f"{y+2.65:g}",
                              **{"text-anchor": align, "font-family": "DejaVu Sans, sans-serif", "font-size": "8.8"})
         label.text = pin
     return ET.tostring(root, encoding="utf-8")
@@ -149,10 +156,51 @@ def repeat_switch_symbol(symbol, ports, count, start):
     return ET.tostring(root, encoding="utf-8"), expanded
 
 
-def load_template(identity, view=None, parameters=None):
+def label_symbol(symbol, formats, parameters):
+    root = ET.parse(symbol).getroot()
+    labels = {key: pattern.format(**parameters) for key, pattern in formats.items()}
+    require(len(set(labels.values())) == len(labels), "模块内部的开关位号不能重复")
+    for node in root.iter():
+        if (key := node.get("data-parameter-label")) is not None:
+            node.text = labels.pop(key)
+    require(not labels, "模块图形缺少参数文字位置")
+    ET.register_namespace("", SVG_NAMESPACE)
+    return ET.tostring(root, encoding="utf-8")
+
+
+def style_symbol(root, ports, pin_artwork, identity, internal_color):
+    for node in pin_artwork:
+        node.set("stroke", internal_color)
+    circuit_paint = {"wire": "stroke", "junction": "fill"}
+    for node in root.iter():
+        if (role := node.get("data-circuit-role")) is not None:
+            require(role in circuit_paint, f"{identity} 的电路图形角色无效 {role!r}")
+            node.set(circuit_paint[role], internal_color)
+    palette = {**SYMBOL_TEXT_COLORS, "terminal": internal_color, "interface": internal_color}
+    for node in root.iter(f"{{{SVG_NAMESPACE}}}text"):
+        role = node.get("data-text-role")
+        if role is None and (node.text or "").strip() in ports:
+            role = "terminal"
+        if role is None:
+            continue
+        require(role in palette, f"{identity} 的文字角色无效 {role!r}")
+        node.set("fill", palette[role])
+    ET.register_namespace("", SVG_NAMESPACE)
+    return ET.tostring(root, encoding="utf-8")
+
+
+def load_template(identity, view=None, parameters=None, *, internal_color=DEFAULT_WIRING_COLOR):
     model, sep, version = identity.partition("@")
-    require(sep and TOKEN.fullmatch(model) and version.isdecimal(), f"模板引用应为 型号@版本 {identity!r}")
-    folder = LIBRARY / model / version
+    require(TEMPLATE_TOKEN.fullmatch(model) and (not sep or version.isdecimal()),
+            f"模板引用应为 型号 或 型号@版本 {identity!r}")
+    model_dir = LIBRARY / model
+    if not sep:
+        versions = [path.parent.name for path in model_dir.glob("*/part.json")
+                    if path.parent.name.isdecimal() and path.is_file()]
+        require(versions, f"未找到模板 {model!r} 的任何版本")
+        version = max(versions, key=lambda name: (int(name), name))
+        identity = f"{model}@{version}"
+    folder = model_dir / version
     public = read_json(folder / "part.json")
     require(public["id"] == model and str(public["version"]) == version, f"模板 ID 或版本与目录不一致 {identity}")
     ports = indexed(public["ports"], "id", "端子", PORT_TOKEN.fullmatch)
@@ -192,32 +240,39 @@ def load_template(identity, view=None, parameters=None):
         repeat_switches = layout.get("repeat_switches", False)
         if repeat_switches:
             asset, ports = repeat_switch_symbol(symbol, ports, counts["count"], counts["start"])
+        elif "labels" in layout:
+            asset = label_symbol(symbol, layout["labels"], counts)
         else:
             asset = channel_symbol(layout, counts)
         root = ET.fromstring(asset)
         public["model"] = layout["model"].format(**counts)
     else:
-        asset = symbol
         root = ET.parse(symbol).getroot()
     x, y, width, height = map(float, root.attrib["viewBox"].split())
     require(x == y == 0 and 0 < width <= 10000 and 0 < height <= 10000, f"模板尺寸无效 {identity}")
-    lead_ends = {(float(line.attrib[f"x{end}"]), float(line.attrib[f"y{end}"]))
-                 for line in root.iter(f"{{{SVG_NAMESPACE}}}line") for end in (1, 2)}
+    leads_at = {}
+    for line in root.iter(f"{{{SVG_NAMESPACE}}}line"):
+        for end in (1, 2):
+            point = (float(line.attrib[f"x{end}"]), float(line.attrib[f"y{end}"]))
+            leads_at.setdefault(point, []).append(line)
     anchors = {}
+    pin_artwork = set()
     for node in root.iter():
         if (port := node.get("data-port")) is not None:
             pin_x, pin_y = float(node.attrib["cx"]), float(node.attrib["cy"])
             side = node.attrib["data-side"]
             require(port not in anchors and side in SIDES and 0 <= pin_x <= width and 0 <= pin_y <= height,
                     f"模板锚点无效 {identity}.{port}")
-            require((pin_x, pin_y) in lead_ends, f"模板引脚线与锚点有断口 {identity}.{port}")
+            require((pin_x, pin_y) in leads_at, f"模板引脚线与锚点有断口 {identity}.{port}")
             anchors[port] = (pin_x, pin_y, side)
+            pin_artwork.add(node)
+            pin_artwork.update(leads_at[(pin_x, pin_y)])
     if variant:
         require(anchors.keys() <= ports.keys(), f"图形使用了模板未定义的端子 {identity}")
         public["ports"] = [ports[pin] for pin in anchors]
     else:
         require(anchors.keys() == ports.keys(), f"模板端子与锚点不一致 {identity}")
-    return Template(public, asset, (width, height), anchors, view)
+    return Template(public, style_symbol(root, ports, pin_artwork, identity, internal_color), (width, height), anchors, view)
 
 
 def runs(value, mono):
@@ -241,13 +296,19 @@ def text(page, x, y, value, size, *, color=INK, mono=False, right=False):
 def project_data(path):
     data = read_json(path)
     require(data["version"] == 1, "工程版本应为 1")
+    colors = data.get("colors", {})
+    require(isinstance(colors, dict) and colors.keys() <= {"internal", "external"},
+            "工程 colors 应为包含 internal 或 external 的对象")
+    for name, value in colors.items():
+        require(isinstance(value, str) and COLOR_TOKEN.fullmatch(value), f"工程 colors.{name} 应使用 #RRGGBB 格式")
+    data["colors"] = {name: colors.get(name, DEFAULT_WIRING_COLOR) for name in ("internal", "external")}
     sheets = indexed(data["sheets"], "id", "图页")
     instances = indexed(data["instances"], "id", "配件实例")
     require(sheets and instances, "工程至少需要一页和一个配件实例")
     indexed(instances.values(), "reference", "位号")
     choices = {ident: (device["template"], device.get("view"), json.dumps(device.get("parameters", {}), sort_keys=True))
                for ident, device in instances.items()}
-    loaded = {(model, view, params): load_template(model, view, json.loads(params))
+    loaded = {(model, view, params): load_template(model, view, json.loads(params), internal_color=data["colors"]["internal"])
               for model, view, params in set(choices.values())}
     templates = {ident: loaded[choice] for ident, choice in choices.items()}
     for ident, device in instances.items():
@@ -355,7 +416,7 @@ def layout_devices(blocks, page_width, page_height, sheet):
     raise ValueError(f"图页 {sheet} 的模块及网络标签空间不足，请将部分模块移至其他图页")
 
 
-def draw_device(page, x0, y0, block, scale):
+def draw_device(page, x0, y0, block, scale, colors):
     dw, dh = block.size(scale)
     x1, y1 = x0 + dw, y0 + dh
     center = x0 + block.horizontal_space(scale)[0]
@@ -372,8 +433,7 @@ def draw_device(page, x0, y0, block, scale):
     if real_photo:
         page.insert_image(box, filename=template.asset)
     else:
-        svg = template.asset if isinstance(template.asset, bytes) else template.asset.read_bytes()
-        with pdf.open(stream=svg, filetype="svg") as symbol:
+        with pdf.open(stream=template.asset, filetype="svg") as symbol:
             with pdf.open(stream=symbol.convert_to_pdf(), filetype="pdf") as vector:
                 page.show_pdf_page(box, vector, 0, keep_proportion=False)
 
@@ -393,19 +453,19 @@ def draw_device(page, x0, y0, block, scale):
                 row = rows[index]
                 elbow = (a + (-6 if side == "left" else 6), b)
             rail = box.x0 - 20 if side == "left" else box.x1 + 20
-            page.draw_polyline([(a, b), elbow, (rail, row)], color=NET, width=1.05)
+            page.draw_polyline([(a, b), elbow, (rail, row)], color=colors["external"], width=1.05)
             tx = rail + (-5 if side == "left" else 5)
-            text(page, tx, row + 1, name, block.net_font, color=NET, mono=True, right=side == "left")
+            text(page, tx, row + 1, name, block.net_font, color=colors["external"], mono=True, right=side == "left")
 
     if real_photo:
         marks = []
         for pin in block.connected_ports:
             x, y, _ = template.anchors[pin]
             marks.append((pin, ox + x * scale, oy + y * scale))
-        draw_photo_marks(page, box, marks, compact=True)
+        draw_photo_marks(page, box, marks, color=colors["internal"], compact=True)
 
 
-def draw_photo(page, frame, photo, path, endpoint_names):
+def draw_photo(page, frame, photo, path, endpoint_names, color):
     x0, y0, x1, y1 = frame
     text(page, x0 + 10, y0 + 23, "实物接口", 16)
     image = pdf.Pixmap(local_file(path.parent, photo["file"]))
@@ -423,10 +483,10 @@ def draw_photo(page, frame, photo, path, endpoint_names):
         require(all(isinstance(value, (int, float)) and 0 <= value <= 1 for value in (rx, ry)), f"照片标记坐标无效 {endpoint}")
         x, y = box.x0 + rx * box.width, box.y0 + ry * box.height
         marks.append((endpoint_names[endpoint], x, y))
-    draw_photo_marks(page, box, marks)
+    draw_photo_marks(page, box, marks, color=color)
 
 
-def draw_photo_marks(page, box, marks, *, compact=False):
+def draw_photo_marks(page, box, marks, *, color, compact=False):
     font, height, radius, inset, padding = (8, 12, 3, 16, 4) if compact else (10, 17, 5, 31, 6)
     columns = {1: [], -1: []}
     for name, x, y in marks:
@@ -445,14 +505,16 @@ def draw_photo_marks(page, box, marks, *, compact=False):
             tag = pdf.Rect(tx, ty, tx + tag_w, ty + height)
             require(box.contains(tag) and not any(tag.intersects(other) for other in label_boxes), f"照片标签空间不足 {name}")
             label_boxes.append(tag)
-            page.draw_circle((x, y), radius, color=MARK, width=1.15 if compact else 1.6)
-            page.draw_line((x + radius * direction, y), (tx if direction == 1 else tx + tag_w, ty + height // 2), color=MARK, width=.75 if compact else 1)
-            page.draw_rect(tag, color=MARK, fill=WHITE, width=.65)
-            text(page, tx + padding, ty + (height - 3 if compact else 12), name, font, color=MARK, mono=True)
+            page.draw_circle((x, y), radius, color=color, width=1.15 if compact else 1.6)
+            page.draw_line((x + radius * direction, y), (tx if direction == 1 else tx + tag_w, ty + height // 2), color=color, width=.75 if compact else 1)
+            page.draw_rect(tag, color=color, fill=WHITE, width=.65)
+            text(page, tx + padding, ty + (height - 3 if compact else 12), name, font, color=color, mono=True)
 
 
 def compose(path):
     data, sheets, devices, templates, nets, members, endpoint_names = project_data(path)
+    colors = {role: tuple(channel / 255 for channel in bytes.fromhex(value[1:]))
+              for role, value in data["colors"].items()}
     sheet_order = {sheet: i for i, sheet in enumerate(sheets)}
     document = pdf.open()
     try:
@@ -464,10 +526,10 @@ def compose(path):
             page = document[number]
             require(width(sheets[sheet]["title"], 27) < 610, f"图页 {sheet} 的标题过长")
             page.draw_rect(page.rect, color=None, fill=WHITE)
-            page.draw_rect((32, 32, 36, 78), color=None, fill=NET)
+            page.draw_rect((32, 32, 36, 78), color=None, fill=PAGE_ACCENT)
             text(page, 48, 41, data["title"], 11, color=MUTED)
             text(page, 48, 72, sheets[sheet]["title"], 27)
-            text(page, 808, 58, f"{sheet} / {len(sheets):02d}", 13, color=NET, mono=True, right=True)
+            text(page, 808, 58, f"{sheet} / {len(sheets):02d}", 13, color=PAGE_ACCENT, mono=True, right=True)
             page.draw_line((32, 91), (810, 91), color=RULE, width=.65)
             text(page, 32, 570, data.get("source", ""), 9, color=MUTED)
             page.draw_line((32, 550), (810, 550), color=RULE, width=.65)
@@ -484,10 +546,10 @@ def compose(path):
                         if (name := members.get(f"{ident}.{pin}")) is not None}
                 blocks.append(device_block(device, template, tags))
             for (x, y), block, scale in layout_devices(blocks, edge - 32, 430, sheet):
-                draw_device(page, 32 + x, 108 + y, block, scale)
+                draw_device(page, 32 + x, 108 + y, block, scale, colors)
             if photo:
                 page.draw_rect((410, 108, 810, 414), color=RULE, fill=PAPER, width=.65)
-                draw_photo(page, (410, 108, 810, 414), photo, path, endpoint_names)
+                draw_photo(page, (410, 108, 810, 414), photo, path, endpoint_names, colors["internal"])
         return document, {name: [endpoint_names[p] for p in net["members"]] for name, net in nets.items()}
     except Exception:
         document.close()

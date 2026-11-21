@@ -3,16 +3,20 @@
 ## 定义配件和端子
 
 1. 检查库里是否已有对应的具体型号和针脚配置。相似的外壳、相同的接口数量和名称不足以确认两款硬件的针序一致。
-2. 在 `library/型号/版本/` 建立 `part.json` 和至少一种图面。`id` 和 `version` 对应目录，工程用 `型号@版本` 引用。现成的最小样例见 [USB 转 TTL](../../../library/usb-ttl/1/part.json)。
+2. 在 `library/型号/版本/` 建立 `part.json` 和至少一种图面。`id` 和 `version` 对应目录，工程用 `型号` 引用最高数字版本，或用 `型号@版本` 固定版本。现成的最小样例见 [USB 转 TTL](../../../library/usb-ttl/1/part.json)。
 3. 在 `ports` 中为每个端子写稳定的 `id` 和 `name`。端子 ID 可使用英文字母、数字、下划线、加减号和斜杠。已确认的 `A/H`、`DC+`、`3V`、`S2-2` 等可照录。空接端子也属于配件定义。整口连接器可加 `"kind": "connector"`，按整口定义时继续使用原图提供的接口粒度。
 4. `name` 是模板的默认名称，`model` 是默认的图面小字。固定名称可复用于不同通道配置，小字可以显示通道数量。用 `fields` 公开实例可填字段。`station` 只有在 `fields` 中声明后才可使用，值为文本。
 
 保留已有端子 ID 及其含义。如果实物型号或针脚定义有实质区别，以单独的模板或版本存放。模板按型号复用，实例级的名称、位号、备注、站号、通道数和本次接线写入工程。
 
+型号目录和 `part.json` 的 `id` 可用中文并须逐字匹配。例如 `library/气阀控制/1/` 对应 `"id": "气阀控制"`、`"version": 1`。用 `python wiring.py part 气阀控制` 查最新版，或用 `python wiring.py part 气阀控制@1` 查第 1 版。位号、实例 ID 和端子 ID 仍按既有工程约定填写。
+
 ## 制作 SVG 符号
 
 - `symbol.svg` 的 `viewBox` 从 `0 0` 起算。每个端子有一个带 `data-port` 和 `data-side` 的 `<circle>`，分别填写端子 ID 与 `left`、`right`、`top` 或 `bottom`。`cx`、`cy` 必须和引脚 `<line>` 的一个端点重合，均写为图面上的绝对坐标。示例见 [USB 转 TTL 符号](../../../library/usb-ttl/1/symbol.svg)。
 - 图形的锚点集合应与端子定义一致。需要复用的 SVG 只承载模块外形、端子、功能分组等局部图形。将整页标题、位号和网络标签交给出图器。
+- SVG 文字用 `data-text-role` 标记用途。位号用 `reference`，端子和整口连接器用 `terminal` 或 `interface`，说明用 `description`，急停用 `emergency`。`terminal` 和 `interface` 都使用工程的 `colors.internal`，文字恰好等于端子 ID 时也使用这个颜色。复合标签如 `01 NO` 可显式标为 `terminal`。
+- 工具根据端子锚点识别端点圆圈和相接的引脚线。内部导线和触点轮廓用 `data-circuit-role="wire"` 标记，实心接点用 `data-circuit-role="junction"` 标记，可以将同类图形放在一个带标记的 SVG 分组中。出图器通过 `colors.internal` 设置这些图形的颜色，通过 `colors.external` 设置外部引线和网名。模板标记用途，颜色在[工程配置](projects.md#配置线路颜色)中维护。参考[气阀控制符号](../../../library/air-valve-control/1/symbol.svg)。
 - 同类管脚在组内等距。对称的触点列尽量逐行对齐。通道之间用细分隔线，供电、通信、采集或数字输入等功能组用留白和更明显的分隔线。为缩放后的网名留出行距，使左右端子的短引线尽量水平直出。参考[中盛继电器符号](../../../library/zhongsheng-relay-16in16out/1/symbol.svg)。
 
 ## 制作实物照片模板
@@ -25,4 +29,5 @@
 - 在 `part.json` 的 `parameters` 中声明每项可配置的整数参数及 `label`、`min`、`max`、`default`。参数范围和端子编号要来源明确，例如根据已知最大通道图裁减，或按同系列实物资料定义。
 - 对多通道模块，保留默认配置的 `symbol.svg`，用 `channel-layout.json` 定义其他参数组合的行距、分组、端子模式和小字。区分固定端子与随通道变化的端子。参考[电压采集布局](../../../library/zhongsheng-voltage-8ch/1/channel-layout.json)及[继电器布局](../../../library/zhongsheng-relay-16in16out/1/channel-layout.json)。
 - 对重复行程开关，沿用现有[单只开关符号](../../../library/limit-switch/1/symbol.svg)和[重复配置](../../../library/limit-switch/1/channel-layout.json)。以 `count` 表示数量、`start` 表示起始编号。每只开关使用自己的 1、2、3 端子，串接或并接关系由工程网络定义。
+- 只需替换内部开关位号的模块，可以在 `channel-layout.json` 的 `labels` 中声明位号格式，并在符号对应的 `<text>` 上用 `data-parameter-label` 指向参数名。图形仍引用相同的外部端子 ID。参考[气阀控制位号配置](../../../library/air-valve-control/1/channel-layout.json)。
 - 用 `part` 验证默认变体及代表性参数的端子总数、边界端子和固定接口。例如 `python wiring.py part zhongsheng-voltage-8ch@1 --parameters '{"channels":4}'`。再用一个同时连接变动端子和固定端子的工程出图，检查引线和分隔线。

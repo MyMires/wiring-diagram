@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "title": "测试治具接线图",
+  "source": "四模块排版样例 · 原参考片段合页",
+  "colors": {"external": "#9A4A16"},
+  "sheets": [{"id": "P01", "title": "四模块单页排版"}],
+  "instances": [
+    {
+      "id": "valve",
+      "template": "air-valve-control@1",
+      "reference": "VALVE1",
+      "sheet": "P01",
+      "parameters": {"left_start": 12, "right_start": 13, "limit_switch": 14, "emergency_stop": 15}
+    },
+    {"id": "psu", "template": "switching-power-supply@1", "reference": "PS1", "sheet": "P01", "name": "UUT电源", "note": "15V1A"},
+    {"id": "adapter", "template": "usb-ttl@1", "reference": "USB1", "sheet": "P01"},
+    {"id": "switches", "template": "limit-switch@1", "reference": "S2-S3", "sheet": "P01", "parameters": {"count": 2, "start": 2}}
+  ],
+  "nets": [
+    {"name": "模块电源-", "members": ["valve.MODULE_PWR_NEG"], "external": true},
+    {"name": "气缸电磁阀-", "members": ["valve.SOLENOID_NEG"], "external": true},
+    {"name": "RB1-行程开关检测", "members": ["valve.LIMIT_DETECT"], "external": true},
+    {"name": "USB HUB", "members": ["adapter.USB"], "external": true},
+    {"name": "继电器1-RXD", "members": ["adapter.TXD"], "external": true},
+    {"name": "继电器1-TXD", "members": ["adapter.RXD"], "external": true},
+    {"name": "AGND", "members": ["adapter.GND"], "external": true},
+    {"name": "模块电源+", "members": ["switches.S2-2"], "external": true},
+    {"name": "行程开关串接", "members": ["switches.S2-1", "switches.S3-2"]},
+    {"name": "RM1-X1", "members": ["switches.S3-1"], "external": true}
+  ]
+}

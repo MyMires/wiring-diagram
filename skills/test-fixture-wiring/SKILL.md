@@ -5,11 +5,11 @@ description: 构建和复用测试治具的配件模板，录入或修改命名�
 
 # 测试治具接线图
 
-在包含 `wiring.py`、`library/` 和 `examples/` 的独立接线图工作区运行工具。这个 Skill 随该工作区保存，亦可从其目录向上两级定位工作区。运行环境和依赖见[工作区 README](../../README.md)。
+在包含 `wiring.py`、`library/` 和 `projects/` 的独立接线图工作区运行工具。这个 Skill 随该工作区保存，亦可从其目录向上两级定位工作区。运行环境和依赖见[工作区 README](../../README.md)。
 
-1. 用 `python wiring.py part` 查库。用 `python wiring.py part 型号@版本` 读取支持的视图、实例字段、参数和端子。为带参数的实例接线前，传 `--parameters` 查询该配置实际拥有的端子。
+1. 用 `python wiring.py part` 查库。用 `python wiring.py part 型号` 查看最新版本的视图、实例字段、参数和端子，也可写 `型号@版本` 查询固定版本。为带参数的实例接线前，传 `--parameters` 查询该配置实际拥有的端子。
 2. 建立或修改配件库时阅读[制作模块模板](references/templates.md)。根据参考资料确认型号、端子、次序、方向和视图。需要新增模块时，先让模板通过 `part` 检查，再将它引用到工程。
-3. 建立或修改接线图时阅读[工程、网络与出图](references/projects.md)。在工程 JSON 指定模块、图页和网络，在模板中封装图形及锚点。把参考图中属于同一网络的端子加入同一个 `members` 列表。
-4. 使用 `python wiring.py validate 工程.json` 核对成员和排版，再用 `python wiring.py render 工程.json 输出.svg` 或 `.pdf` 出图。打开实际输出复查引线是否接到对应端子、文字是否重叠、同网端子是否采用同一网名。校验结果要与参考资料逐条核对。
+3. 建立或修改接线图时阅读[工程、网络与出图](references/projects.md)。在工程 JSON 指定模块、图页和网络，在模板中封装图形及锚点。把参考图中属于同一网络的端子加入同一个 `members` 列表。按需用工程顶层的 `colors` 设置内部或外部颜色，省略的一项由工具使用默认蓝色。
+4. 使用 `python wiring.py validate 工程.json` 核对成员和排版，再用 `python wiring.py render 工程.json 输出.svg` 或 `.pdf` 出图。打开实际输出复查引线是否接到对应端子、文字是否重叠、同网端子是否采用同一网名，以及指定的配色是否应用到正确的对象。校验结果要与参考资料逐条核对。
 
 以资料确认的端子和接线为准。碰到不明确的针脚、信号或图像锚点时，把具体位置和待确认内容记录下来，先完成已能确认的部分。交付工程 JSON、用户所需的生成图，以及为本次任务新增或修改的模板。后续接线和分页从工程 JSON 维护并重新出图。

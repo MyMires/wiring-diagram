@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "title": "测试治具接线图",
+  "source": "参考气阀控制线路 · 开关位号为配置示例",
+  "sheets": [{"id": "P01", "title": "气阀控制"}],
+  "instances": [
+    {
+      "id": "valve",
+      "template": "air-valve-control@1",
+      "reference": "VALVE1",
+      "sheet": "P01",
+      "parameters": {"left_start": 12, "right_start": 13, "limit_switch": 14, "emergency_stop": 15}
+    }
+  ],
+  "nets": [
+    {"name": "模块电源-", "members": ["valve.MODULE_PWR_NEG"], "external": true},
+    {"name": "气缸电磁阀-", "members": ["valve.SOLENOID_NEG"], "external": true},
+    {"name": "RB1-行程开关检测", "members": ["valve.LIMIT_DETECT"], "external": true}
+  ]
+}

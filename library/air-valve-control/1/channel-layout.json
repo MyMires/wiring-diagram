@@ -1,0 +1,9 @@
+{
+  "model": "双启动 / 行程 / 急停",
+  "labels": {
+    "left_start": "S{left_start}",
+    "right_start": "S{right_start}",
+    "limit_switch": "S{limit_switch}",
+    "emergency_stop": "S{emergency_stop}"
+  }
+}

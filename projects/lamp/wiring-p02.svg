@@ -172,14 +172,14 @@ B
 <use data-text="5" xlink:href="#font_3_22" transform="matrix(10,0,0,-10,63,214.65515)" fill="#1c5c94" />
 <use data-text="_" xlink:href="#font_3_64" transform="matrix(10,0,0,-10,69,214.65515)" fill="#1c5c94" />
 <use data-text="B" xlink:href="#font_3_35" transform="matrix(10,0,0,-10,75,214.65515)" fill="#1c5c94" />
-<path transform="matrix(1,0,0,-1,0,595)" stroke-width="1.15" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#b53324" d="M119.5456 396.38703C119.5456 394.73017 120.88875 393.38703 122.5456 393.38703 124.20245 393.38703 125.5456 394.73017 125.5456 396.38703 125.5456 398.04389 124.20245 399.38703 122.5456 399.38703 120.88875 399.38703 119.5456 398.04389 119.5456 396.38703Z" />
-<path transform="matrix(1,0,0,-1,0,595)" stroke-width=".75" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#b53324" d="M125.5456 396.38703H138.54561" />
+<path transform="matrix(1,0,0,-1,0,595)" stroke-width="1.15" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#1c5c94" d="M119.5456 396.38703C119.5456 394.73017 120.88875 393.38703 122.5456 393.38703 124.20245 393.38703 125.5456 394.73017 125.5456 396.38703 125.5456 398.04389 124.20245 399.38703 122.5456 399.38703 120.88875 399.38703 119.5456 398.04389 119.5456 396.38703Z" />
+<path transform="matrix(1,0,0,-1,0,595)" stroke-width=".75" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#1c5c94" d="M125.5456 396.38703H138.54561" />
 <path transform="matrix(1,0,0,-1,0,595)" d="M138.54561 390.38703H151.34561V402.38703H138.54561Z" fill="#ffffff" />
-<path transform="matrix(1,0,0,-1,0,595)" stroke-width=".65" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#b53324" d="M138.54561 390.38703H151.34561V402.38703H138.54561Z" />
-<use data-text="A" xlink:href="#font_3_34" transform="matrix(8,0,0,-8,142.54561,201.61298)" fill="#b53324" />
-<path transform="matrix(1,0,0,-1,0,595)" stroke-width="1.15" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#b53324" d="M119.5456 381.34486C119.5456 379.688 120.88875 378.34486 122.5456 378.34486 124.20245 378.34486 125.5456 379.688 125.5456 381.34486 125.5456 383.0017 124.20245 384.34486 122.5456 384.34486 120.88875 384.34486 119.5456 383.0017 119.5456 381.34486Z" />
-<path transform="matrix(1,0,0,-1,0,595)" stroke-width=".75" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#b53324" d="M125.5456 381.34486H138.54561" />
+<path transform="matrix(1,0,0,-1,0,595)" stroke-width=".65" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#1c5c94" d="M138.54561 390.38703H151.34561V402.38703H138.54561Z" />
+<use data-text="A" xlink:href="#font_3_34" transform="matrix(8,0,0,-8,142.54561,201.61298)" fill="#1c5c94" />
+<path transform="matrix(1,0,0,-1,0,595)" stroke-width="1.15" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#1c5c94" d="M119.5456 381.34486C119.5456 379.688 120.88875 378.34486 122.5456 378.34486 124.20245 378.34486 125.5456 379.688 125.5456 381.34486 125.5456 383.0017 124.20245 384.34486 122.5456 384.34486 120.88875 384.34486 119.5456 383.0017 119.5456 381.34486Z" />
+<path transform="matrix(1,0,0,-1,0,595)" stroke-width=".75" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#1c5c94" d="M125.5456 381.34486H138.54561" />
 <path transform="matrix(1,0,0,-1,0,595)" d="M138.54561 375.34486H151.34561V387.34486H138.54561Z" fill="#ffffff" />
-<path transform="matrix(1,0,0,-1,0,595)" stroke-width=".65" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#b53324" d="M138.54561 375.34486H151.34561V387.34486H138.54561Z" />
-<use data-text="B" xlink:href="#font_3_35" transform="matrix(8,0,0,-8,142.54561,216.65515)" fill="#b53324" />
+<path transform="matrix(1,0,0,-1,0,595)" stroke-width=".65" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#1c5c94" d="M138.54561 375.34486H151.34561V387.34486H138.54561Z" />
+<use data-text="B" xlink:href="#font_3_35" transform="matrix(8,0,0,-8,142.54561,216.65515)" fill="#1c5c94" />
 </svg>
