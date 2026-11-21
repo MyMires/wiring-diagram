@@ -30,7 +30,7 @@ python wiring.py render projects/lamp/project.json projects/lamp/wiring.pdf
 
 `render` 根据扩展名出图。多页 SVG 使用 `wiring-p01.svg`、`wiring-p02.svg` 等文件名。SVG 文字以矢量轮廓输出，以保持显示一致，原文保存在图的描述元素中。
 
-[`skills/test-fixture-wiring/SKILL.md`](skills/test-fixture-wiring/SKILL.md) 是工作区内的 AI 操作说明。让 AI 读取它后，通过命令行查库、修改 JSON 工程、校验并出图。
+[测试接线 Skill](skills/test-wiring/SKILL.md) 指导 AI 为测试台架、设备、模块和治具建库、录入接线并出图。
 
 首版使用 A4 横向、按工程指定图页排版。配件实物模板随实例放置，图页还可通过 `photo` 附一张说明照片。达到可读尺寸下限仍放不下时，校验会指出需要拆分的图页。同一工程中，标有同一网络名的端子属于同一个网络，适用于同页和跨页接线。`validate` 输出每个网络的完整成员。
 
