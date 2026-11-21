@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "title": "测试治具接线图",
+  "source": "手动压接控制 · S2 左行程开关 · S3 右行程开关",
+  "sheets": [{"id": "P01", "title": "手动压接控制"}],
+  "instances": [
+    {"id": "switches", "template": "limit-switch@1", "reference": "S2-S3", "sheet": "P01", "parameters": {"count": 2, "start": 2}}
+  ],
+  "nets": [
+    {"name": "模块电源+", "members": ["switches.S2-2"], "external": true},
+    {"name": "行程开关串接", "members": ["switches.S2-1", "switches.S3-2"]},
+    {"name": "RM1-X1", "members": ["switches.S3-1"], "external": true}
+  ]
+}

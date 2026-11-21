@@ -1,0 +1,8 @@
+{
+  "file": "rs485-converter.png",
+  "ports": {
+    "A": {"at": [0.06128, 0.31214], "side": "left"},
+    "B": {"at": [0.06128, 0.42775], "side": "left"},
+    "DB9": {"at": [0.96657, 0.52023], "side": "right"}
+  }
+}

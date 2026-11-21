@@ -1,0 +1,20 @@
+{
+  "id": "usb-ttl",
+  "version": 1,
+  "name": "USB转TTL模块",
+  "model": "5针 TTL",
+  "fields": {
+    "name": "显示名称",
+    "reference": "位号",
+    "note": "图面备注"
+  },
+  "ports": [
+    {"id": "USB", "name": "USB接口", "kind": "connector"},
+    {"id": "TXD", "name": "TXD"},
+    {"id": "RXD", "name": "RXD"},
+    {"id": "GND", "name": "GND"},
+    {"id": "3V", "name": "3V"},
+    {"id": "5V", "name": "5V"}
+  ],
+  "min_scale": 0.8
+}

@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "title": "测试治具接线图",
+  "source": "依据用户提供的单页接线图 · 2026/10/16",
+  "sheets": [
+    {
+      "id": "P01",
+      "title": "16 路继电器板与 8 通道电压采集"
+    }
+  ],
+  "instances": [
+    {
+      "id": "relay",
+      "template": "zhongsheng-relay-16in16out@1",
+      "reference": "K1",
+      "sheet": "P01"
+    },
+    {
+      "id": "acquisition",
+      "template": "zhongsheng-voltage-8ch@1",
+      "reference": "M1",
+      "sheet": "P01"
+    }
+  ],
+  "nets": [
+    {"name": "U1-2", "members": ["relay.NO9", "relay.X10"], "note": "Cat Sense"},
+    {"name": "电压采集通道1", "members": ["relay.COM9", "acquisition.A1+"], "note": "电压采集通道切换"},
+    {"name": "U1-14", "members": ["relay.NC9", "relay.X2"], "note": "Battery"},
+    {"name": "U1-3", "members": ["relay.NO10", "relay.X11"], "note": "Bonnet"},
+    {"name": "电压采集通道2", "members": ["relay.COM10", "acquisition.A2+"], "note": "电压采集通道切换"},
+    {"name": "U1-5", "members": ["relay.NC10", "relay.X3"], "note": "Motor"},
+    {"name": "U1-13", "members": ["relay.NO11", "relay.X12"], "note": "RTC"},
+    {"name": "电压采集通道3", "members": ["relay.COM11", "acquisition.A3+"], "note": "电压采集通道切换"},
+    {"name": "U1-6", "members": ["relay.NC11", "relay.X4"], "note": "DFTI2C"},
+    {"name": "烧录器2-2", "members": ["relay.NO12"], "external": true},
+    {"name": "UUT-J5-1", "members": ["relay.COM12"], "external": true, "note": "烧录器1/2切换"},
+    {"name": "烧录器1-2", "members": ["relay.NC12"], "external": true},
+    {"name": "烧录器2-1", "members": ["relay.NO13"], "external": true},
+    {"name": "UUT-J5-2", "members": ["relay.COM13"], "external": true, "note": "烧录器1/2切换"},
+    {"name": "烧录器1-1", "members": ["relay.NC13"], "external": true},
+    {"name": "烧录器2-5", "members": ["relay.NO14"], "external": true},
+    {"name": "UUT-J5-3", "members": ["relay.COM14"], "external": true, "note": "烧录器1/2切换"},
+    {"name": "烧录器1-5", "members": ["relay.NC14"], "external": true},
+    {"name": "烧录器2-4", "members": ["relay.NO15"], "external": true},
+    {"name": "UUT-J5-4", "members": ["relay.COM15"], "external": true, "note": "烧录器1/2切换"},
+    {"name": "烧录器1-4", "members": ["relay.NC15"], "external": true},
+    {"name": "模块通信RS485-A", "members": ["relay.A/H", "acquisition.A/H"]},
+    {"name": "模块通信RS485-B", "members": ["relay.B/L", "acquisition.B/L"]},
+    {"name": "模块电源+", "members": ["relay.V+", "acquisition.DC+"]},
+    {"name": "模块电源-", "members": ["relay.V-", "acquisition.DC-"]},
+    {"name": "烧录器2-SW-1", "members": ["relay.COM8"], "external": true, "note": "烧录器2开关"},
+    {"name": "烧录器2-SW-2", "members": ["relay.NO8"], "external": true, "note": "烧录器2开关"},
+    {"name": "烧录器1-SW-1", "members": ["relay.COM7"], "external": true, "note": "烧录器1开关"},
+    {"name": "烧录器1-SW-2", "members": ["relay.NO7"], "external": true, "note": "烧录器1开关"},
+    {"name": "测试板-SW1-1", "members": ["relay.COM6"], "external": true, "note": "测试板开关"},
+    {"name": "GND", "members": ["relay.NO6", "relay.COM", "acquisition.A1-", "acquisition.A2-", "acquisition.A3-", "acquisition.A4-", "acquisition.A5-", "acquisition.A6-", "acquisition.A7-", "acquisition.A8-"]},
+    {"name": "烧录器2-USB接口-5V+", "members": ["relay.COM5"], "external": true},
+    {"name": "USB HUB通道 B", "members": ["relay.NO5"], "external": true, "note": "烧录器5V脚经继电器板转接USB HUB"},
+    {"name": "烧录器1-USB接口-5V+", "members": ["relay.COM4"], "external": true},
+    {"name": "USB HUB通道 A", "members": ["relay.NO4"], "external": true, "note": "烧录器5V脚经继电器板转接USB HUB"},
+    {"name": "J4-2", "members": ["relay.COM2"], "external": true, "note": "测试板电源"},
+    {"name": "测试板电源+", "members": ["relay.NO2"], "external": true},
+    {"name": "J1+", "members": ["relay.COM1"], "external": true, "note": "UUT电源"},
+    {"name": "UUT电源+", "members": ["relay.NO1"], "external": true},
+    {"name": "U1-10", "members": ["relay.X9", "acquisition.A8+"], "note": "ESP32"},
+    {"name": "U1-4", "members": ["relay.X8", "acquisition.A7+"], "note": "Hall Effect"},
+    {"name": "U1-7", "members": ["relay.X7", "acquisition.A6+"], "note": "Ambient Sense"},
+    {"name": "U1-8", "members": ["relay.X6", "acquisition.A5+"], "note": "LED"},
+    {"name": "U1-9", "members": ["relay.X5", "acquisition.A4+"], "note": "Keypad"},
+    {"name": "RM1-X1", "members": ["relay.X1"], "external": true, "note": "行程开关检测"}
+  ]
+}

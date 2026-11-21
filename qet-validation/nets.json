@@ -1,0 +1,37 @@
+{
+    "list": [
+        {
+            "net": 1,
+            "terminals": [
+                {
+                    "element": "D1",
+                    "folio": 1,
+                    "terminal": "45"
+                },
+                {
+                    "element": "Going arrow",
+                    "folio": 1,
+                    "terminal": "1"
+                },
+                {
+                    "element": "Coming arrow",
+                    "folio": 2,
+                    "terminal": "1"
+                },
+                {
+                    "element": "D2",
+                    "folio": 2,
+                    "terminal": "45"
+                },
+                {
+                    "element": "X1",
+                    "folio": 2,
+                    "terminal": "485A"
+                }
+            ],
+            "wire_no": "RS485_A"
+        }
+    ],
+    "nets": 1,
+    "project": "Custom Fixture Wiring Validation"
+}

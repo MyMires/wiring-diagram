@@ -1,0 +1,27 @@
+{
+  "id": "rs485-rs232",
+  "version": 1,
+  "name": "串口转接器",
+  "model": "RS485 / RS232",
+  "fields": {
+    "name": "显示名称",
+    "reference": "位号",
+    "note": "图面备注"
+  },
+  "ports": [
+    {
+      "id": "A",
+      "name": "RS485 A"
+    },
+    {
+      "id": "B",
+      "name": "RS485 B"
+    },
+    {
+      "id": "DB9",
+      "name": "RS232 DB9",
+      "kind": "connector"
+    }
+  ],
+  "min_scale": 0.66
+}

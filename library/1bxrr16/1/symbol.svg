@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 457 446">
+<rect x="53" y="48" width="359" height="325" rx="7" fill="#f2f7fa" stroke="#6a879b" stroke-width="1.25"/>
+<line x1="157" y1="65" x2="157" y2="316" stroke="#b9ccd9" stroke-width="1.1"/>
+<line x1="308" y1="65" x2="308" y2="316" stroke="#b9ccd9" stroke-width="1.1"/>
+<text x="232.5" y="183" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="32" font-weight="600" fill="#172b3c">1BXRR16</text>
+<text x="232.5" y="208" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="12" font-weight="400" fill="#526d84">16 CHANNELS</text>
+<line x1="37" y1="73" x2="53" y2="73" stroke="#6a879b" stroke-width="1.1"/><circle data-port="1" data-side="left" cx="37" cy="73" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="62" y="76" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">01  NO</text>
+<line x1="37" y1="83" x2="53" y2="83" stroke="#6a879b" stroke-width="1.1"/><circle data-port="2" data-side="left" cx="37" cy="83" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="62" y="86" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">02  COM1</text>
+<line x1="37" y1="93" x2="53" y2="93" stroke="#6a879b" stroke-width="1.1"/><circle data-port="3" data-side="left" cx="37" cy="93" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="62" y="96" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">03  NC</text>
+<line x1="37" y1="103" x2="53" y2="103" stroke="#6a879b" stroke-width="1.1"/><circle data-port="4" data-side="left" cx="37" cy="103" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="62" y="106" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">04  NO</text>
+<line x1="37" y1="113" x2="53" y2="113" stroke="#6a879b" stroke-width="1.1"/><circle data-port="5" data-side="left" cx="37" cy="113" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="62" y="116" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">05  COM2</text>
+<line x1="37" y1="123" x2="53" y2="123" stroke="#6a879b" stroke-width="1.1"/><circle data-port="6" data-side="left" cx="37" cy="123" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="62" y="126" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">06  NC</text>
+<line x1="37" y1="133" x2="53" y2="133" stroke="#6a879b" stroke-width="1.1"/><circle data-port="7" data-side="left" cx="37" cy="133" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="62" y="136" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">07  NO</text>
+<line x1="37" y1="143" x2="53" y2="143" stroke="#6a879b" stroke-width="1.1"/><circle data-port="8" data-side="left" cx="37" cy="143" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="62" y="146" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">08  COM3</text>
+<line x1="37" y1="153" x2="53" y2="153" stroke="#6a879b" stroke-width="1.1"/><circle data-port="9" data-side="left" cx="37" cy="153" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="62" y="156" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">09  NC</text>
+<line x1="37" y1="163" x2="53" y2="163" stroke="#6a879b" stroke-width="1.1"/><circle data-port="10" data-side="left" cx="37" cy="163" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="62" y="166" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">10  NO</text>
+<line x1="37" y1="173" x2="53" y2="173" stroke="#6a879b" stroke-width="1.1"/><circle data-port="11" data-side="left" cx="37" cy="173" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="62" y="176" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">11  COM4</text>
+<line x1="37" y1="183" x2="53" y2="183" stroke="#6a879b" stroke-width="1.1"/><circle data-port="12" data-side="left" cx="37" cy="183" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="62" y="186" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">12  NC</text>
+<line x1="37" y1="193" x2="53" y2="193" stroke="#6a879b" stroke-width="1.1"/><circle data-port="13" data-side="left" cx="37" cy="193" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="62" y="196" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">13  NO</text>
+<line x1="37" y1="203" x2="53" y2="203" stroke="#6a879b" stroke-width="1.1"/><circle data-port="14" data-side="left" cx="37" cy="203" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="62" y="206" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">14  COM5</text>
+<line x1="37" y1="213" x2="53" y2="213" stroke="#6a879b" stroke-width="1.1"/><circle data-port="15" data-side="left" cx="37" cy="213" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="62" y="216" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">15  NC</text>
+<line x1="37" y1="223" x2="53" y2="223" stroke="#6a879b" stroke-width="1.1"/><circle data-port="16" data-side="left" cx="37" cy="223" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="62" y="226" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">16  NO</text>
+<line x1="37" y1="233" x2="53" y2="233" stroke="#6a879b" stroke-width="1.1"/><circle data-port="17" data-side="left" cx="37" cy="233" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="62" y="236" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">17  COM6</text>
+<line x1="37" y1="243" x2="53" y2="243" stroke="#6a879b" stroke-width="1.1"/><circle data-port="18" data-side="left" cx="37" cy="243" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="62" y="246" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">18  NC</text>
+<line x1="37" y1="253" x2="53" y2="253" stroke="#6a879b" stroke-width="1.1"/><circle data-port="19" data-side="left" cx="37" cy="253" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="62" y="256" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">19  NO</text>
+<line x1="37" y1="263" x2="53" y2="263" stroke="#6a879b" stroke-width="1.1"/><circle data-port="20" data-side="left" cx="37" cy="263" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="62" y="266" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">20  COM7</text>
+<line x1="37" y1="273" x2="53" y2="273" stroke="#6a879b" stroke-width="1.1"/><circle data-port="21" data-side="left" cx="37" cy="273" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="62" y="276" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">21  NC</text>
+<line x1="37" y1="283" x2="53" y2="283" stroke="#6a879b" stroke-width="1.1"/><circle data-port="22" data-side="left" cx="37" cy="283" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="62" y="286" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">22  NO</text>
+<line x1="37" y1="293" x2="53" y2="293" stroke="#6a879b" stroke-width="1.1"/><circle data-port="23" data-side="left" cx="37" cy="293" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="62" y="296" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">23  COM8</text>
+<line x1="37" y1="303" x2="53" y2="303" stroke="#6a879b" stroke-width="1.1"/><circle data-port="24" data-side="left" cx="37" cy="303" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="62" y="306" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">24  NC</text>
+<line x1="67" y1="389" x2="67" y2="373" stroke="#6a879b" stroke-width="1.1"/><circle data-port="25" data-side="bottom" cx="67" cy="389" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="67" y="366" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c">25</text>
+<text x="65" y="397" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c" transform="rotate(90 65 397)">COM1</text>
+<line x1="83" y1="389" x2="83" y2="373" stroke="#6a879b" stroke-width="1.1"/><circle data-port="26" data-side="bottom" cx="83" cy="389" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="83" y="366" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c">26</text>
+<text x="81" y="397" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c" transform="rotate(90 81 397)">X1</text>
+<line x1="99" y1="389" x2="99" y2="373" stroke="#6a879b" stroke-width="1.1"/><circle data-port="27" data-side="bottom" cx="99" cy="389" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="99" y="366" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c">27</text>
+<text x="97" y="397" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c" transform="rotate(90 97 397)">X2</text>
+<line x1="115" y1="389" x2="115" y2="373" stroke="#6a879b" stroke-width="1.1"/><circle data-port="28" data-side="bottom" cx="115" cy="389" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="115" y="366" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c">28</text>
+<text x="113" y="397" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c" transform="rotate(90 113 397)">X3</text>
+<line x1="131" y1="389" x2="131" y2="373" stroke="#6a879b" stroke-width="1.1"/><circle data-port="29" data-side="bottom" cx="131" cy="389" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="131" y="366" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c">29</text>
+<text x="129" y="397" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c" transform="rotate(90 129 397)">X4</text>
+<line x1="147" y1="389" x2="147" y2="373" stroke="#6a879b" stroke-width="1.1"/><circle data-port="30" data-side="bottom" cx="147" cy="389" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="147" y="366" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c">30</text>
+<text x="145" y="397" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c" transform="rotate(90 145 397)">X5</text>
+<line x1="163" y1="389" x2="163" y2="373" stroke="#6a879b" stroke-width="1.1"/><circle data-port="31" data-side="bottom" cx="163" cy="389" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="163" y="366" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c">31</text>
+<text x="161" y="397" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c" transform="rotate(90 161 397)">X6</text>
+<line x1="179" y1="389" x2="179" y2="373" stroke="#6a879b" stroke-width="1.1"/><circle data-port="32" data-side="bottom" cx="179" cy="389" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="179" y="366" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c">32</text>
+<text x="177" y="397" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c" transform="rotate(90 177 397)">X7</text>
+<line x1="195" y1="389" x2="195" y2="373" stroke="#6a879b" stroke-width="1.1"/><circle data-port="33" data-side="bottom" cx="195" cy="389" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="195" y="366" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c">33</text>
+<text x="193" y="397" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c" transform="rotate(90 193 397)">X8</text>
+<line x1="211" y1="389" x2="211" y2="373" stroke="#6a879b" stroke-width="1.1"/><circle data-port="34" data-side="bottom" cx="211" cy="389" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="211" y="366" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c">34</text>
+<text x="209" y="397" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c" transform="rotate(90 209 397)">X9</text>
+<line x1="227" y1="389" x2="227" y2="373" stroke="#6a879b" stroke-width="1.1"/><circle data-port="35" data-side="bottom" cx="227" cy="389" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="227" y="366" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c">35</text>
+<text x="225" y="397" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c" transform="rotate(90 225 397)">X10</text>
+<line x1="243" y1="389" x2="243" y2="373" stroke="#6a879b" stroke-width="1.1"/><circle data-port="36" data-side="bottom" cx="243" cy="389" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="243" y="366" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c">36</text>
+<text x="241" y="397" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c" transform="rotate(90 241 397)">X11</text>
+<line x1="259" y1="389" x2="259" y2="373" stroke="#6a879b" stroke-width="1.1"/><circle data-port="37" data-side="bottom" cx="259" cy="389" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="259" y="366" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c">37</text>
+<text x="257" y="397" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c" transform="rotate(90 257 397)">X12</text>
+<line x1="275" y1="389" x2="275" y2="373" stroke="#6a879b" stroke-width="1.1"/><circle data-port="38" data-side="bottom" cx="275" cy="389" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="275" y="366" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c">38</text>
+<text x="273" y="397" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c" transform="rotate(90 273 397)">X13</text>
+<line x1="291" y1="389" x2="291" y2="373" stroke="#6a879b" stroke-width="1.1"/><circle data-port="39" data-side="bottom" cx="291" cy="389" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="291" y="366" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c">39</text>
+<text x="289" y="397" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c" transform="rotate(90 289 397)">X14</text>
+<line x1="307" y1="389" x2="307" y2="373" stroke="#6a879b" stroke-width="1.1"/><circle data-port="40" data-side="bottom" cx="307" cy="389" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="307" y="366" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c">40</text>
+<text x="305" y="397" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c" transform="rotate(90 305 397)">X15</text>
+<line x1="323" y1="389" x2="323" y2="373" stroke="#6a879b" stroke-width="1.1"/><circle data-port="41" data-side="bottom" cx="323" cy="389" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="323" y="366" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c">41</text>
+<text x="321" y="397" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c" transform="rotate(90 321 397)">X16</text>
+<line x1="339" y1="389" x2="339" y2="373" stroke="#6a879b" stroke-width="1.1"/><circle data-port="42" data-side="bottom" cx="339" cy="389" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="339" y="366" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c">42</text>
+<text x="337" y="397" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c" transform="rotate(90 337 397)">COM2</text>
+<line x1="355" y1="389" x2="355" y2="373" stroke="#6a879b" stroke-width="1.1"/><circle data-port="43" data-side="bottom" cx="355" cy="389" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="355" y="366" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c">43</text>
+<text x="353" y="397" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c" transform="rotate(90 353 397)">GND</text>
+<line x1="371" y1="389" x2="371" y2="373" stroke="#6a879b" stroke-width="1.1"/><circle data-port="44" data-side="bottom" cx="371" cy="389" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="371" y="366" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c">44</text>
+<text x="369" y="397" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c" transform="rotate(90 369 397)">VCC_OUT</text>
+<line x1="428" y1="319" x2="412" y2="319" stroke="#6a879b" stroke-width="1.1"/><circle data-port="45" data-side="right" cx="428" cy="319" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="401" y="322" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="10" font-weight="600" fill="#285b7d">485A  45</text>
+<line x1="428" y1="345" x2="412" y2="345" stroke="#6a879b" stroke-width="1.1"/><circle data-port="46" data-side="right" cx="428" cy="345" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="401" y="348" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="10" font-weight="600" fill="#285b7d">485B  46</text>
+<line x1="428" y1="303" x2="412" y2="303" stroke="#6a879b" stroke-width="1.1"/><circle data-port="47" data-side="right" cx="428" cy="303" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="403" y="306" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">NO  47</text>
+<line x1="428" y1="293" x2="412" y2="293" stroke="#6a879b" stroke-width="1.1"/><circle data-port="48" data-side="right" cx="428" cy="293" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="403" y="296" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">COM16  48</text>
+<line x1="428" y1="283" x2="412" y2="283" stroke="#6a879b" stroke-width="1.1"/><circle data-port="49" data-side="right" cx="428" cy="283" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="403" y="286" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">NC  49</text>
+<line x1="428" y1="273" x2="412" y2="273" stroke="#6a879b" stroke-width="1.1"/><circle data-port="50" data-side="right" cx="428" cy="273" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="403" y="276" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">NO  50</text>
+<line x1="428" y1="263" x2="412" y2="263" stroke="#6a879b" stroke-width="1.1"/><circle data-port="51" data-side="right" cx="428" cy="263" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="403" y="266" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">COM15  51</text>
+<line x1="428" y1="253" x2="412" y2="253" stroke="#6a879b" stroke-width="1.1"/><circle data-port="52" data-side="right" cx="428" cy="253" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="403" y="256" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">NC  52</text>
+<line x1="428" y1="243" x2="412" y2="243" stroke="#6a879b" stroke-width="1.1"/><circle data-port="53" data-side="right" cx="428" cy="243" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="403" y="246" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">NO  53</text>
+<line x1="428" y1="233" x2="412" y2="233" stroke="#6a879b" stroke-width="1.1"/><circle data-port="54" data-side="right" cx="428" cy="233" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="403" y="236" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">COM14  54</text>
+<line x1="428" y1="223" x2="412" y2="223" stroke="#6a879b" stroke-width="1.1"/><circle data-port="55" data-side="right" cx="428" cy="223" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="403" y="226" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">NC  55</text>
+<line x1="428" y1="213" x2="412" y2="213" stroke="#6a879b" stroke-width="1.1"/><circle data-port="56" data-side="right" cx="428" cy="213" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="403" y="216" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">NO  56</text>
+<line x1="428" y1="203" x2="412" y2="203" stroke="#6a879b" stroke-width="1.1"/><circle data-port="57" data-side="right" cx="428" cy="203" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="403" y="206" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">COM13  57</text>
+<line x1="428" y1="193" x2="412" y2="193" stroke="#6a879b" stroke-width="1.1"/><circle data-port="58" data-side="right" cx="428" cy="193" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="403" y="196" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">NC  58</text>
+<line x1="428" y1="183" x2="412" y2="183" stroke="#6a879b" stroke-width="1.1"/><circle data-port="59" data-side="right" cx="428" cy="183" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="403" y="186" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">NO  59</text>
+<line x1="428" y1="173" x2="412" y2="173" stroke="#6a879b" stroke-width="1.1"/><circle data-port="60" data-side="right" cx="428" cy="173" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="403" y="176" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">COM12  60</text>
+<line x1="428" y1="163" x2="412" y2="163" stroke="#6a879b" stroke-width="1.1"/><circle data-port="61" data-side="right" cx="428" cy="163" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="403" y="166" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">NC  61</text>
+<line x1="428" y1="153" x2="412" y2="153" stroke="#6a879b" stroke-width="1.1"/><circle data-port="62" data-side="right" cx="428" cy="153" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="403" y="156" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">NO  62</text>
+<line x1="428" y1="143" x2="412" y2="143" stroke="#6a879b" stroke-width="1.1"/><circle data-port="63" data-side="right" cx="428" cy="143" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="403" y="146" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">COM11  63</text>
+<line x1="428" y1="133" x2="412" y2="133" stroke="#6a879b" stroke-width="1.1"/><circle data-port="64" data-side="right" cx="428" cy="133" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="403" y="136" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">NC  64</text>
+<line x1="428" y1="123" x2="412" y2="123" stroke="#6a879b" stroke-width="1.1"/><circle data-port="65" data-side="right" cx="428" cy="123" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="403" y="126" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">NO  65</text>
+<line x1="428" y1="113" x2="412" y2="113" stroke="#6a879b" stroke-width="1.1"/><circle data-port="66" data-side="right" cx="428" cy="113" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="403" y="116" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">COM10  66</text>
+<line x1="428" y1="103" x2="412" y2="103" stroke="#6a879b" stroke-width="1.1"/><circle data-port="67" data-side="right" cx="428" cy="103" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="403" y="106" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">NC  67</text>
+<line x1="428" y1="93" x2="412" y2="93" stroke="#6a879b" stroke-width="1.1"/><circle data-port="68" data-side="right" cx="428" cy="93" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="403" y="96" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">NO  68</text>
+<line x1="428" y1="83" x2="412" y2="83" stroke="#6a879b" stroke-width="1.1"/><circle data-port="69" data-side="right" cx="428" cy="83" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="403" y="86" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">COM9  69</text>
+<line x1="428" y1="73" x2="412" y2="73" stroke="#6a879b" stroke-width="1.1"/><circle data-port="70" data-side="right" cx="428" cy="73" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="403" y="76" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="9" font-weight="400" fill="#172b3c">NC  70</text>
+<line x1="270" y1="29" x2="270" y2="48" stroke="#6a879b" stroke-width="1.1"/><circle data-port="71" data-side="top" cx="270" cy="29" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="270" y="19" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c">71 J14_VCC_IN</text>
+<line x1="178" y1="29" x2="178" y2="48" stroke="#6a879b" stroke-width="1.1"/><circle data-port="72" data-side="top" cx="178" cy="29" r="2.2" stroke="#285b7d" fill="#ffffff" stroke-width=".95"/>
+<text x="178" y="19" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-size="8.5" font-weight="400" fill="#172b3c">72 J14_GND</text>
+</svg>

@@ -1,0 +1,17 @@
+{
+  "model": "{inputs} 入 / {outputs} 出",
+  "width": 154,
+  "pitch": 10.5,
+  "first_y": 7,
+  "sections": {
+    "left": [
+      {"parameter": "outputs", "half": "upper", "pins": ["NO{n}", "COM{n}", "NC{n}"], "separate_channels": true},
+      {"pins": ["A/H", "B/L"]},
+      {"pins": ["V+", "V-"]}
+    ],
+    "right": [
+      {"parameter": "outputs", "half": "lower", "pins": ["NC{n}", "COM{n}", "NO{n}"], "separate_channels": true},
+      {"parameter": "inputs", "numbers": [16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1], "pins": ["X{n}"], "trailing": ["COM"], "separate_channels": true}
+    ]
+  }
+}

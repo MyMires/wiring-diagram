@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "title": "测试治具接线图",
+  "source": "USB 转 TTL 接线摘录",
+  "sheets": [{"id": "P01", "title": "USB 转 TTL 接线"}],
+  "instances": [{"id": "adapter", "template": "usb-ttl@1", "reference": "USB1", "sheet": "P01"}],
+  "nets": [
+    {"name": "USB HUB", "members": ["adapter.USB"], "external": true},
+    {"name": "继电器1-RXD", "members": ["adapter.TXD"], "external": true},
+    {"name": "继电器1-TXD", "members": ["adapter.RXD"], "external": true},
+    {"name": "AGND", "members": ["adapter.GND"], "external": true}
+  ]
+}

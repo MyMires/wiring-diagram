@@ -1,0 +1,235 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 154 400">
+  <rect x="17" y="1" width="120" height="398" rx="5" fill="#f2f7fa" stroke="#6a879b"/>
+  <line x1="77" y1="10" x2="77" y2="390" stroke="#c7d7e1" stroke-width=".6"/>
+  <line x1="77" x2="136" y1="246.75" y2="246.75" stroke="#d4e1e9" stroke-width="0.55"/>
+  <line x1="77" x2="136" y1="256.25" y2="256.25" stroke="#d4e1e9" stroke-width="0.55"/>
+  <line x1="77" x2="136" y1="265.75" y2="265.75" stroke="#d4e1e9" stroke-width="0.55"/>
+  <line x1="77" x2="136" y1="275.25" y2="275.25" stroke="#d4e1e9" stroke-width="0.55"/>
+  <line x1="77" x2="136" y1="284.75" y2="284.75" stroke="#d4e1e9" stroke-width="0.55"/>
+  <line x1="77" x2="136" y1="294.25" y2="294.25" stroke="#d4e1e9" stroke-width="0.55"/>
+  <line x1="77" x2="136" y1="303.75" y2="303.75" stroke="#d4e1e9" stroke-width="0.55"/>
+  <line x1="77" x2="136" y1="313.25" y2="313.25" stroke="#d4e1e9" stroke-width="0.55"/>
+  <line x1="77" x2="136" y1="322.75" y2="322.75" stroke="#d4e1e9" stroke-width="0.55"/>
+  <line x1="77" x2="136" y1="332.25" y2="332.25" stroke="#d4e1e9" stroke-width="0.55"/>
+  <line x1="77" x2="136" y1="341.75" y2="341.75" stroke="#d4e1e9" stroke-width="0.55"/>
+  <line x1="77" x2="136" y1="351.25" y2="351.25" stroke="#d4e1e9" stroke-width="0.55"/>
+  <line x1="77" x2="136" y1="360.75" y2="360.75" stroke="#d4e1e9" stroke-width="0.55"/>
+  <line x1="77" x2="136" y1="370.25" y2="370.25" stroke="#d4e1e9" stroke-width="0.55"/>
+  <line x1="77" x2="136" y1="379.75" y2="379.75" stroke="#d4e1e9" stroke-width="0.55"/>
+  <line x1="18" x2="136" y1="30.75" y2="30.75" stroke="#d4e1e9" stroke-width="0.55"/>
+  <line x1="18" x2="136" y1="59.25" y2="59.25" stroke="#d4e1e9" stroke-width="0.55"/>
+  <line x1="18" x2="136" y1="87.75" y2="87.75" stroke="#d4e1e9" stroke-width="0.55"/>
+  <line x1="18" x2="136" y1="116.25" y2="116.25" stroke="#d4e1e9" stroke-width="0.55"/>
+  <line x1="18" x2="136" y1="144.75" y2="144.75" stroke="#d4e1e9" stroke-width="0.55"/>
+  <line x1="18" x2="136" y1="173.25" y2="173.25" stroke="#d4e1e9" stroke-width="0.55"/>
+  <line x1="18" x2="136" y1="201.75" y2="201.75" stroke="#d4e1e9" stroke-width="0.55"/>
+  <line x1="18" x2="136" y1="233.75" y2="233.75" stroke="#a9bdca" stroke-width="0.85"/>
+  <line x1="18" x2="76.5" y1="259.75" y2="259.75" stroke="#a9bdca" stroke-width="0.85"/>
+  <line x1="2" x2="17" y1="7" y2="7" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="7" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NO9" data-side="left"/>
+  <text x="24" y="9.65" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NO9</text>
+  <line x1="2" x2="17" y1="16.5" y2="16.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="16.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="COM9" data-side="left"/>
+  <text x="24" y="19.15" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">COM9</text>
+  <line x1="2" x2="17" y1="26" y2="26" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="26" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NC9" data-side="left"/>
+  <text x="24" y="28.65" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NC9</text>
+  <line x1="2" x2="17" y1="35.5" y2="35.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="35.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NO10" data-side="left"/>
+  <text x="24" y="38.15" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NO10</text>
+  <line x1="2" x2="17" y1="45" y2="45" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="45" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="COM10" data-side="left"/>
+  <text x="24" y="47.65" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">COM10</text>
+  <line x1="2" x2="17" y1="54.5" y2="54.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="54.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NC10" data-side="left"/>
+  <text x="24" y="57.15" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NC10</text>
+  <line x1="2" x2="17" y1="64" y2="64" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="64" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NO11" data-side="left"/>
+  <text x="24" y="66.65" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NO11</text>
+  <line x1="2" x2="17" y1="73.5" y2="73.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="73.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="COM11" data-side="left"/>
+  <text x="24" y="76.15" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">COM11</text>
+  <line x1="2" x2="17" y1="83" y2="83" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="83" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NC11" data-side="left"/>
+  <text x="24" y="85.65" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NC11</text>
+  <line x1="2" x2="17" y1="92.5" y2="92.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="92.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NO12" data-side="left"/>
+  <text x="24" y="95.15" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NO12</text>
+  <line x1="2" x2="17" y1="102" y2="102" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="102" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="COM12" data-side="left"/>
+  <text x="24" y="104.65" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">COM12</text>
+  <line x1="2" x2="17" y1="111.5" y2="111.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="111.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NC12" data-side="left"/>
+  <text x="24" y="114.15" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NC12</text>
+  <line x1="2" x2="17" y1="121" y2="121" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="121" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NO13" data-side="left"/>
+  <text x="24" y="123.65" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NO13</text>
+  <line x1="2" x2="17" y1="130.5" y2="130.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="130.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="COM13" data-side="left"/>
+  <text x="24" y="133.15" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">COM13</text>
+  <line x1="2" x2="17" y1="140" y2="140" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="140" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NC13" data-side="left"/>
+  <text x="24" y="142.65" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NC13</text>
+  <line x1="2" x2="17" y1="149.5" y2="149.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="149.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NO14" data-side="left"/>
+  <text x="24" y="152.15" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NO14</text>
+  <line x1="2" x2="17" y1="159" y2="159" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="159" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="COM14" data-side="left"/>
+  <text x="24" y="161.65" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">COM14</text>
+  <line x1="2" x2="17" y1="168.5" y2="168.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="168.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NC14" data-side="left"/>
+  <text x="24" y="171.15" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NC14</text>
+  <line x1="2" x2="17" y1="178" y2="178" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="178" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NO15" data-side="left"/>
+  <text x="24" y="180.65" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NO15</text>
+  <line x1="2" x2="17" y1="187.5" y2="187.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="187.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="COM15" data-side="left"/>
+  <text x="24" y="190.15" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">COM15</text>
+  <line x1="2" x2="17" y1="197" y2="197" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="197" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NC15" data-side="left"/>
+  <text x="24" y="199.65" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NC15</text>
+  <line x1="2" x2="17" y1="206.5" y2="206.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="206.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NO16" data-side="left"/>
+  <text x="24" y="209.15" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NO16</text>
+  <line x1="2" x2="17" y1="216" y2="216" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="216" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="COM16" data-side="left"/>
+  <text x="24" y="218.65" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">COM16</text>
+  <line x1="2" x2="17" y1="225.5" y2="225.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="225.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NC16" data-side="left"/>
+  <text x="24" y="228.15" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NC16</text>
+  <line x1="2" x2="17" y1="242" y2="242" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="242" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="A/H" data-side="left"/>
+  <text x="24" y="244.65" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">A/H</text>
+  <line x1="2" x2="17" y1="251.5" y2="251.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="251.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="B/L" data-side="left"/>
+  <text x="24" y="254.15" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">B/L</text>
+  <line x1="2" x2="17" y1="268" y2="268" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="268" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="V+" data-side="left"/>
+  <text x="24" y="270.65" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">V+</text>
+  <line x1="2" x2="17" y1="277.5" y2="277.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="2" cy="277.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="V-" data-side="left"/>
+  <text x="24" y="280.15" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">V-</text>
+  <line x1="152" x2="137" y1="7" y2="7" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="7" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NC8" data-side="right"/>
+  <text x="130" y="9.65" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NC8</text>
+  <line x1="152" x2="137" y1="16.5" y2="16.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="16.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="COM8" data-side="right"/>
+  <text x="130" y="19.15" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">COM8</text>
+  <line x1="152" x2="137" y1="26" y2="26" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="26" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NO8" data-side="right"/>
+  <text x="130" y="28.65" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NO8</text>
+  <line x1="152" x2="137" y1="35.5" y2="35.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="35.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NC7" data-side="right"/>
+  <text x="130" y="38.15" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NC7</text>
+  <line x1="152" x2="137" y1="45" y2="45" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="45" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="COM7" data-side="right"/>
+  <text x="130" y="47.65" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">COM7</text>
+  <line x1="152" x2="137" y1="54.5" y2="54.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="54.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NO7" data-side="right"/>
+  <text x="130" y="57.15" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NO7</text>
+  <line x1="152" x2="137" y1="64" y2="64" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="64" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NC6" data-side="right"/>
+  <text x="130" y="66.65" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NC6</text>
+  <line x1="152" x2="137" y1="73.5" y2="73.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="73.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="COM6" data-side="right"/>
+  <text x="130" y="76.15" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">COM6</text>
+  <line x1="152" x2="137" y1="83" y2="83" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="83" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NO6" data-side="right"/>
+  <text x="130" y="85.65" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NO6</text>
+  <line x1="152" x2="137" y1="92.5" y2="92.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="92.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NC5" data-side="right"/>
+  <text x="130" y="95.15" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NC5</text>
+  <line x1="152" x2="137" y1="102" y2="102" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="102" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="COM5" data-side="right"/>
+  <text x="130" y="104.65" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">COM5</text>
+  <line x1="152" x2="137" y1="111.5" y2="111.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="111.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NO5" data-side="right"/>
+  <text x="130" y="114.15" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NO5</text>
+  <line x1="152" x2="137" y1="121" y2="121" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="121" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NC4" data-side="right"/>
+  <text x="130" y="123.65" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NC4</text>
+  <line x1="152" x2="137" y1="130.5" y2="130.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="130.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="COM4" data-side="right"/>
+  <text x="130" y="133.15" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">COM4</text>
+  <line x1="152" x2="137" y1="140" y2="140" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="140" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NO4" data-side="right"/>
+  <text x="130" y="142.65" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NO4</text>
+  <line x1="152" x2="137" y1="149.5" y2="149.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="149.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NC3" data-side="right"/>
+  <text x="130" y="152.15" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NC3</text>
+  <line x1="152" x2="137" y1="159" y2="159" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="159" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="COM3" data-side="right"/>
+  <text x="130" y="161.65" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">COM3</text>
+  <line x1="152" x2="137" y1="168.5" y2="168.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="168.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NO3" data-side="right"/>
+  <text x="130" y="171.15" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NO3</text>
+  <line x1="152" x2="137" y1="178" y2="178" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="178" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NC2" data-side="right"/>
+  <text x="130" y="180.65" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NC2</text>
+  <line x1="152" x2="137" y1="187.5" y2="187.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="187.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="COM2" data-side="right"/>
+  <text x="130" y="190.15" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">COM2</text>
+  <line x1="152" x2="137" y1="197" y2="197" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="197" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NO2" data-side="right"/>
+  <text x="130" y="199.65" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NO2</text>
+  <line x1="152" x2="137" y1="206.5" y2="206.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="206.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NC1" data-side="right"/>
+  <text x="130" y="209.15" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NC1</text>
+  <line x1="152" x2="137" y1="216" y2="216" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="216" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="COM1" data-side="right"/>
+  <text x="130" y="218.65" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">COM1</text>
+  <line x1="152" x2="137" y1="225.5" y2="225.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="225.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NO1" data-side="right"/>
+  <text x="130" y="228.15" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NO1</text>
+  <line x1="152" x2="137" y1="242" y2="242" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="242" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="X16" data-side="right"/>
+  <text x="130" y="244.65" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">X16</text>
+  <line x1="152" x2="137" y1="251.5" y2="251.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="251.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="X15" data-side="right"/>
+  <text x="130" y="254.15" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">X15</text>
+  <line x1="152" x2="137" y1="261" y2="261" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="261" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="X14" data-side="right"/>
+  <text x="130" y="263.65" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">X14</text>
+  <line x1="152" x2="137" y1="270.5" y2="270.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="270.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="X13" data-side="right"/>
+  <text x="130" y="273.15" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">X13</text>
+  <line x1="152" x2="137" y1="280" y2="280" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="280" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="X12" data-side="right"/>
+  <text x="130" y="282.65" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">X12</text>
+  <line x1="152" x2="137" y1="289.5" y2="289.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="289.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="X11" data-side="right"/>
+  <text x="130" y="292.15" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">X11</text>
+  <line x1="152" x2="137" y1="299" y2="299" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="299" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="X10" data-side="right"/>
+  <text x="130" y="301.65" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">X10</text>
+  <line x1="152" x2="137" y1="308.5" y2="308.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="308.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="X9" data-side="right"/>
+  <text x="130" y="311.15" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">X9</text>
+  <line x1="152" x2="137" y1="318" y2="318" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="318" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="X8" data-side="right"/>
+  <text x="130" y="320.65" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">X8</text>
+  <line x1="152" x2="137" y1="327.5" y2="327.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="327.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="X7" data-side="right"/>
+  <text x="130" y="330.15" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">X7</text>
+  <line x1="152" x2="137" y1="337" y2="337" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="337" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="X6" data-side="right"/>
+  <text x="130" y="339.65" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">X6</text>
+  <line x1="152" x2="137" y1="346.5" y2="346.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="346.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="X5" data-side="right"/>
+  <text x="130" y="349.15" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">X5</text>
+  <line x1="152" x2="137" y1="356" y2="356" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="356" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="X4" data-side="right"/>
+  <text x="130" y="358.65" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">X4</text>
+  <line x1="152" x2="137" y1="365.5" y2="365.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="365.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="X3" data-side="right"/>
+  <text x="130" y="368.15" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">X3</text>
+  <line x1="152" x2="137" y1="375" y2="375" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="375" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="X2" data-side="right"/>
+  <text x="130" y="377.65" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">X2</text>
+  <line x1="152" x2="137" y1="384.5" y2="384.5" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="384.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="X1" data-side="right"/>
+  <text x="130" y="387.15" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">X1</text>
+  <line x1="152" x2="137" y1="394" y2="394" stroke="#6a879b" stroke-width=".8"/>
+  <circle cx="152" cy="394" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="COM" data-side="right"/>
+  <text x="130" y="396.65" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">COM</text>
+</svg>

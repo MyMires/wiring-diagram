@@ -1,0 +1,16 @@
+{
+  "model": "{channels}通道",
+  "width": 130,
+  "pitch": 11.35,
+  "first_y": 11,
+  "sections": {
+    "left": [
+      {"pins": ["DC+", "DC-"]},
+      {"pins": ["A/H", "B/L"]},
+      {"pins": ["PE"]}
+    ],
+    "right": [
+      {"parameter": "channels", "numbers": [1, 2, 3, 4, 5, 6, 7, 8], "pins": ["A{n}+", "A{n}-"], "separate_channels": true}
+    ]
+  }
+}

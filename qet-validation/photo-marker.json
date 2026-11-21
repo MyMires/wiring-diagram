@@ -1,0 +1,11 @@
+{
+  "folio": 2,
+  "image_id": "{32de7c4c-d679-48db-9bed-bc0c8cf3e6b7}",
+  "x_rel": 0.06128133704735376,
+  "y_rel": 0.31213872832369943,
+  "endpoint": {
+    "element": "X1",
+    "terminal": "485A"
+  },
+  "label": "X1.485A"
+}
