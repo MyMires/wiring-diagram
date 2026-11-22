@@ -8,8 +8,8 @@
     {"id": "acquisition", "template": "中盛8通道电压采集模块@1", "reference": "M1", "sheet": "P01", "station": "02", "parameters": {"channels": 4}}
   ],
   "nets": [
-    {"name": "模块电源+", "members": ["relay.V+", "acquisition.DC+"]},
-    {"name": "模块电源-", "members": ["relay.V-", "acquisition.DC-"]},
+    {"name": "模块电源+", "members": ["relay.DC+", "acquisition.DC+"]},
+    {"name": "模块电源-", "members": ["relay.DC-", "acquisition.DC-"]},
     {"name": "模块通信RS485-A", "members": ["relay.A/H", "acquisition.A/H"]},
     {"name": "模块通信RS485-B", "members": ["relay.B/L", "acquisition.B/L"]},
     {"name": "GND", "members": ["relay.COM", "acquisition.A1-", "acquisition.A2-", "acquisition.A3-", "acquisition.A4-"]}

@@ -104,11 +104,11 @@
   <circle cx="2" cy="251.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="B/L" data-side="left"/>
   <text x="24" y="254.15" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">B/L</text>
   <line x1="2" x2="17" y1="268" y2="268" stroke="#6a879b" stroke-width=".8"/>
-  <circle cx="2" cy="268" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="V+" data-side="left"/>
-  <text x="24" y="270.65" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">V+</text>
+  <circle cx="2" cy="268" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="DC+" data-side="left"/>
+  <text x="24" y="270.65" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">DC+</text>
   <line x1="2" x2="17" y1="277.5" y2="277.5" stroke="#6a879b" stroke-width=".8"/>
-  <circle cx="2" cy="277.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="V-" data-side="left"/>
-  <text x="24" y="280.15" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">V-</text>
+  <circle cx="2" cy="277.5" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="DC-" data-side="left"/>
+  <text x="24" y="280.15" text-anchor="start" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">DC-</text>
   <line x1="152" x2="137" y1="7" y2="7" stroke="#6a879b" stroke-width=".8"/>
   <circle cx="152" cy="7" r="1.65" fill="#fff" stroke="#285b7d" stroke-width=".7" data-port="NC8" data-side="right"/>
   <text x="130" y="9.65" text-anchor="end" font-family="DejaVu Sans, sans-serif" font-size="8.8" fill="#172b3c">NC8</text>

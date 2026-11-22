@@ -7,7 +7,7 @@
     "left": [
       {"parameter": "outputs", "half": "upper", "pins": ["NO{n}", "COM{n}", "NC{n}"], "separate_channels": true},
       {"pins": ["A/H", "B/L"]},
-      {"pins": ["V+", "V-"]}
+      {"pins": ["DC+", "DC-"]}
     ],
     "right": [
       {"parameter": "outputs", "half": "lower", "pins": ["NC{n}", "COM{n}", "NO{n}"], "separate_channels": true},

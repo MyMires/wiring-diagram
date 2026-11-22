@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 from copy import deepcopy
 from dataclasses import dataclass
+from functools import cache
 import json
 from pathlib import Path
 import re
@@ -11,6 +12,8 @@ import tempfile
 import xml.etree.ElementTree as ET
 
 import pymupdf as pdf
+
+from wiring_version import __version__
 
 
 LIBRARY = Path(__file__).resolve().parent / "library"
@@ -346,10 +349,22 @@ def width(value, size, mono=False):
     return sum(pdf.get_text_length(run, fontname=name, fontsize=size) for run, name in runs(value, mono))
 
 
-def text(page, x, y, value, size, *, color=INK, mono=False, right=False):
+@cache
+def font_vertical_metrics(name):
+    font = pdf.Font(name)
+    return font.ascender, font.descender
+
+
+def text(page, x, y, value, size, *, color=INK, mono=False, right=False, center_y=False):
+    spans = list(runs(value, mono))
+    if center_y and spans:
+        metrics = [font_vertical_metrics(name) for _, name in spans]
+        ascender = max(top for top, _ in metrics)
+        descender = min(bottom for _, bottom in metrics)
+        y += (ascender + descender) * size / 2
     if right:
         x -= width(value, size, mono)
-    for run, name in runs(value, mono):
+    for run, name in spans:
         page.insert_text((x, y), run, fontname=name, fontsize=size, color=color)
         x += pdf.get_text_length(run, fontname=name, fontsize=size)
 
@@ -382,6 +397,15 @@ def project_data(path):
                     f"{device['reference']} 的站号应为文本")
     endpoint_names = {f"{ident}.{pin}": f"{device['reference']}.{pin}"
                       for ident, device in instances.items() for pin in templates[ident].anchors}
+    # Accept power terminals used by older Zhongsheng relay projects.
+    legacy_endpoints = {
+        f"{ident}.{old}": f"{ident}.{new}"
+        for ident, template in templates.items()
+        if template.public["id"] == "中盛16入16出继电器模块"
+        for old, new in (("V+", "DC+"), ("V-", "DC-"))
+        if new in template.anchors and old not in template.anchors
+    }
+    endpoint_names.update({old: endpoint_names[new] for old, new in legacy_endpoints.items()})
     nets = indexed(data["nets"], "name", "网络",
                    lambda name: bool(name) and name.isprintable() and name == name.strip())
     members = {}
@@ -391,8 +415,9 @@ def project_data(path):
         require(isinstance(net["members"], list) and len(net["members"]) >= (1 if external else 2),
                 f"网络 {name} 至少需要{'一个' if external else '两个'}端子")
         for endpoint in net["members"]:
-            require(endpoint in endpoint_names and endpoint not in members, f"端子不存在或已加入网络 {endpoint}")
-            members[endpoint] = name
+            canonical = legacy_endpoints.get(endpoint, endpoint)
+            require(canonical in endpoint_names and canonical not in members, f"端子不存在或已加入网络 {endpoint}")
+            members[canonical] = name
     return data, sheets, instances, templates, nets, members, endpoint_names
 
 
@@ -516,7 +541,8 @@ def draw_device(page, x0, y0, block, scale, colors):
             rail = box.x0 - 20 if side == "left" else box.x1 + 20
             page.draw_polyline([(a, b), elbow, (rail, row)], color=colors["external"], width=1.05)
             tx = rail + (-5 if side == "left" else 5)
-            text(page, tx, row + 1, name, block.net_font, color=colors["external"], mono=True, right=side == "left")
+            text(page, tx, row, name, block.net_font, color=colors["external"], mono=True,
+                 right=side == "left", center_y=True)
 
     if real_photo:
         marks = []
@@ -647,6 +673,7 @@ def write_outputs(outputs):
 
 def main():
     parser = argparse.ArgumentParser(description="测试治具接线图")
+    parser.add_argument("--version", action="version", version=f"wiring {__version__}")
     commands = parser.add_subparsers(dest="command", required=True)
     part = commands.add_parser("part")
     part.add_argument("identity", nargs="?")

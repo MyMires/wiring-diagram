@@ -1,11 +1,14 @@
-# 测试治具接线图初版
+# 测试治具接线图
 
-使用 Python 3.11+，在独立接线图工作区运行。PDF 引擎为 [`pymupdf-lite`](https://pypi.org/project/pymupdf-lite/2.1/)。
+从器件模板和工程 JSON 生成测试治具接线图。`part` 查询模板和端子，`validate` 检查网表与排版，`render` 输出 SVG 或 PDF。发布记录与对应源码见 [GitHub Releases](https://github.com/MyMires/wiring-diagram/releases)。
 
-`library/` 存可复用的模块模板，`projects/` 存具体的接线工程和生成图。模板目录统一使用中文名称，保留实际型号和接口缩写。工程子目录也可以使用中文。模块目录名与 `part.json` 的 `id` 一致后，工程可用 `"template": "气阀控制"` 引用该型号的最高数字版本，或用 `"template": "气阀控制@1"` 固定为第 1 版。模块显示名称可通过实例的 `name` 单独设置。 旧工程中的英文模板标识仍可解析。
+## 从源码运行
+
+在包含 `wiring.py`、`library/` 和 `projects/` 的仓库根目录运行。源码版使用 Python 3.11+ 和 `pymupdf-lite`。[PDF 引擎](https://pypi.org/project/pymupdf-lite/2.1/)
 
 ```sh
 python -m pip install -r requirements.txt
+python wiring.py --version
 python wiring.py part
 python wiring.py part 继电器板-1BXRR16
 python wiring.py part 继电器板-1BXRR16@1
@@ -14,6 +17,37 @@ python wiring.py render projects/lamp/project.json projects/lamp/wiring.svg
 python wiring.py render projects/lamp/project.json projects/lamp/wiring.pdf
 ```
 
+## Windows 单文件版
+
+`wiring.exe` 可在 Windows x64 上单独运行，内置 Python、PDF 引擎和构建时的器件库。工程 JSON 与它引用的实物照片随工程目录保存。修改器件库时使用源码版，完成后可重新构建 EXE。
+
+从仓库根目录使用 PowerShell 运行以下命令。
+
+```powershell
+.\dist\wiring.exe --version
+.\dist\wiring.exe part
+.\dist\wiring.exe validate .\projects\lamp\project.json
+.\dist\wiring.exe render .\projects\lamp\project.json .\wiring.svg
+```
+
+构建机需有 Windows x64、Python 3.12 x64 和 Microsoft Visual C++ x64 运行库。从仓库根目录运行以下命令，产物为 `dist/wiring.exe`。[微软运行库下载](https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist)
+
+```powershell
+py -3.12 -m venv .venv\windows-build
+.\.venv\windows-build\Scripts\python.exe -m pip install -r requirements.txt pyinstaller==6.19.0 pyinstaller-hooks-contrib==2026.3
+.\.venv\windows-build\Scripts\python.exe -m PyInstaller --clean --noconfirm wiring.spec
+```
+
+## 工具版本
+
+工具从 `0.1.0` 开始，版本号采用 `主版本.次版本.修订号`。源码命令、Windows 命令和 EXE 文件属性共用这一版本号。升级时更新 `wiring_version.py`，重新构建并核对 `--version`。Git 发布标签使用 `v<版本号>`，例如 `v0.1.0`。[版本定义](wiring_version.py)
+
+工程 JSON 的 `version` 标识文件格式。`型号@版本` 选定器件模板版本。[工程格式](skills/test-wiring/references/projects.md) · [模板格式](skills/test-wiring/references/templates.md)
+
+## 示例工程
+
+`library/` 存可复用的器件模板，`projects/` 存接线工程和生成图。模板目录使用中文名称，保留实际型号和接口缩写。模板目录名与 `part.json` 的 `id` 一致，工程可用 `"template": "气阀控制"` 选最高数字版本，或用 `"template": "气阀控制@1"` 固定第 1 版。实例的 `name` 可单独设置显示名称。旧工程中的英文模板标识仍可解析。
+
 [`projects/lamp`](projects/lamp/) 包含灯板通信接线摘录和可重新出图的工程。`part` 命令返回可编辑文本字段、端子定义和支持的图面。实例通过 `view` 选择 `symbol` 或 `photo`，两种图面共用端子 ID。SVG 符号和实物照片的相对坐标均在模板内部，网络引线起于所选图面的端子锚点。样例中的 `X1` 使用实物模板，照片上标记已接线的 `A`、`B`。
 
 在 `sheets` 声明图页，并给同页配件填写相同的 `instances[].sheet`。生成器根据模块、标题和网名的尺寸紧凑排版。比如 [`project-one-page.json`](projects/lamp/project-one-page.json) 将继电器板和转接器放在同一页，自动生成 [`wiring-one-page.svg`](projects/lamp/wiring-one-page.svg)。
@@ -21,6 +55,8 @@ python wiring.py render projects/lamp/project.json projects/lamp/wiring.pdf
 [`projects/zhongsheng-voltage`](projects/zhongsheng-voltage/) 是 16 入 16 出继电器板和 8 通道电压采集模块的单页接线。网络可使用中文原名。若参考图只给出本工程内的一个端子及外部网名，在该网络设置 `"external": true`，并保留本工程已知的端子。
 
 中盛模板的实例可以填写 `"station": "01"`。继电器板可在 `parameters` 中指定 `inputs`、`outputs`（各 1–16），电压采集模块可指定 `channels`（1–8）。省略参数时使用原图的完整通道数。减少通道会裁掉编号超出配置的端子并重新排版，保留其余端子的 ID、通信和供电接口。若网络仍引用已裁掉的端子，校验会报错。当前范围来自参考模板，其他实体型号的管脚以其资料为准。
+
+中盛继电器模块和电压采集模块的直流输入统一引用 `DC+` 和 `DC-`。旧工程仍可使用中盛继电器的 `V+` 和 `V-` 引用。
 
 用 `python wiring.py part 中盛8通道电压采集模块@1 --parameters '{"channels":4}'` 查询指定通道数的可用端子。参见 [参数样例](projects/zhongsheng-voltage/project-channels.json)及其[出图](projects/zhongsheng-voltage/wiring-channels.svg)。
 
