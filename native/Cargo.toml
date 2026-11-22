@@ -1,0 +1,23 @@
+[package]
+name = "wiring"
+version = "0.1.1"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0"
+base64 = "0.22"
+image = { version = "0.25", default-features = false, features = ["png", "jpeg", "gif", "webp", "bmp", "tiff"] }
+include_dir = "0.7"
+pdf-writer = "0.12"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = { version = "1.0", features = ["preserve_order"] }
+svg2pdf = "0.13"
+tempfile = "3.20"
+ttf-parser = "0.25"
+xmltree = "0.11"
+
+[build-dependencies]
+winresource = "0.1"
+
+[profile.release]
+strip = true

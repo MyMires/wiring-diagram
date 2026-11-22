@@ -19,28 +19,29 @@ python wiring.py render projects/lamp/project.json projects/lamp/wiring.pdf
 
 ## Windows 单文件版
 
-`wiring.exe` 可在 Windows x64 上单独运行，内置 Python、PDF 引擎和构建时的器件库。工程 JSON 与它引用的实物照片随工程目录保存。修改器件库时使用源码版，完成后可重新构建 EXE。
+从发行页下载 `wiring.exe`，放到工程目录里即可运行，适用于 Windows 10 和 11 x64。原生版内置出图引擎、中文字体和构建时的器件库。工程 JSON 与它引用的实物照片随工程目录保存。[下载 wiring.exe](https://github.com/MyMires/wiring-diagram/releases/latest/download/wiring.exe)
 
-从仓库根目录使用 PowerShell 运行以下命令。
+以下命令在仓库根目录和 EXE 同目录时可直接运行。
 
 ```powershell
-.\dist\wiring.exe --version
-.\dist\wiring.exe part
-.\dist\wiring.exe validate .\projects\lamp\project.json
-.\dist\wiring.exe render .\projects\lamp\project.json .\wiring.svg
+.\wiring.exe --version
+.\wiring.exe part
+.\wiring.exe validate .\projects\lamp\project.json
+.\wiring.exe render .\projects\lamp\project.json .\wiring.svg
 ```
 
-构建机需有 Windows x64、Python 3.12 x64 和 Microsoft Visual C++ x64 运行库。从仓库根目录运行以下命令，产物为 `dist/wiring.exe`。[微软运行库下载](https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist)
+修改器件库后可以重建单文件。以下命令适用于装有 Rust 和 MinGW-w64 的 Linux 构建机。产物位于 `native/target/x86_64-pc-windows-gnu/release/wiring.exe`。第三方许可声明随发行下载，也可通过 `wiring.exe --licenses` 查看。
 
-```powershell
-py -3.12 -m venv .venv\windows-build
-.\.venv\windows-build\Scripts\python.exe -m pip install -r requirements.txt pyinstaller==6.19.0 pyinstaller-hooks-contrib==2026.3
-.\.venv\windows-build\Scripts\python.exe -m PyInstaller --clean --noconfirm wiring.spec
+```sh
+rustup target add x86_64-pc-windows-gnu
+CARGO_TARGET_X86_64_PC_WINDOWS_GNU_LINKER=x86_64-w64-mingw32-gcc \
+CARGO_TARGET_X86_64_PC_WINDOWS_GNU_RUSTFLAGS="-C target-feature=+crt-static" \
+  cargo build --locked --release --manifest-path native/Cargo.toml --target x86_64-pc-windows-gnu
 ```
 
 ## 工具版本
 
-工具从 `0.1.0` 开始，版本号采用 `主版本.次版本.修订号`。源码命令、Windows 命令和 EXE 文件属性共用这一版本号。升级时更新 `wiring_version.py`，重新构建并核对 `--version`。Git 发布标签使用 `v<版本号>`，例如 `v0.1.0`。[版本定义](wiring_version.py)
+工具版本采用 `主版本.次版本.修订号`。升级时同步更新 `wiring_version.py` 和 `native/Cargo.toml`。构建会核对两处版本，并写入 EXE 文件属性。Git 发布标签使用 `v<版本号>`，例如 `v0.1.1`。[源码版本](wiring_version.py) · [原生构建配置](native/Cargo.toml)
 
 工程 JSON 的 `version` 标识文件格式。`型号@版本` 选定器件模板版本。[工程格式](skills/test-wiring/references/projects.md) · [模板格式](skills/test-wiring/references/templates.md)
 
