@@ -41,9 +41,9 @@ CARGO_TARGET_X86_64_PC_WINDOWS_GNU_RUSTFLAGS="-C target-feature=+crt-static" \
 
 ## 工具版本
 
-工具版本采用 `主版本.次版本.修订号`。升级时同步更新 `wiring_version.py` 和 `native/Cargo.toml`。构建会核对两处版本，并写入 EXE 文件属性。Git 发布标签使用 `v<版本号>`，例如 `v0.1.1`。[源码版本](wiring_version.py) · [原生构建配置](native/Cargo.toml)
+工具版本采用 `主版本.次版本.修订号`。发布时同步更新 `wiring_version.py`、`native/Cargo.toml` 和锁文件。重新构建后，核对源码版和 Windows 版的 `--version`、EXE 文件属性及代表性工程出图。Git 标签 `v<版本号>` 指向已经验证的发布提交。[源码版本](wiring_version.py) · [原生构建配置](native/Cargo.toml)
 
-工程 JSON 的 `version` 标识文件格式。`型号@版本` 选定器件模板版本。[工程格式](skills/test-wiring/references/projects.md) · [模板格式](skills/test-wiring/references/templates.md)
+当前工具读取 `"version": 1` 的工程 JSON。`型号@版本` 选定器件模板版本。[工程格式](skills/test-wiring/references/projects.md) · [模板格式](skills/test-wiring/references/templates.md)
 
 ## 器件库
 
@@ -66,8 +66,6 @@ CARGO_TARGET_X86_64_PC_WINDOWS_GNU_RUSTFLAGS="-C target-feature=+crt-static" \
 
 `render` 根据扩展名出图。多页 SVG 使用 `wiring-p01.svg`、`wiring-p02.svg` 等文件名。SVG 文字以矢量轮廓输出，以保持显示一致，原文保存在图的描述元素中。
 
-[测试接线 Skill](skills/test-wiring/SKILL.md) 指导 AI 为测试台架、设备、模块和治具建库、录入接线并出图。
-
 首版使用 A4 横向、按工程指定图页排版。配件实物模板随实例放置，图页还可通过 `photo` 附一张说明照片。达到可读尺寸下限仍放不下时，校验会指出需要拆分的图页。同一工程中，标有同一网络名的端子属于同一个网络，适用于同页和跨页接线。`validate` 输出每个网络的完整成员。
 
 ## 工程配色
@@ -80,3 +78,7 @@ CARGO_TARGET_X86_64_PC_WINDOWS_GNU_RUSTFLAGS="-C target-feature=+crt-static" \
 python wiring.py validate projects/four-modules/project.json
 python wiring.py render projects/four-modules/project.json projects/four-modules/wiring.svg
 ```
+
+## 测试接线 Skill
+
+可以单独复制 `skills/test-wiring/` 目录使用。接线时提供可用的工具和工程路径，Skill 按当前工具支持的格式工作。器件用法由各版本目录的文档维护，工具发布和器件更新可按各自节奏进行。[测试接线 Skill](skills/test-wiring/SKILL.md)

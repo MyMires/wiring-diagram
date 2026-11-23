@@ -4,9 +4,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("cargo:rerun-if-changed=../wiring_version.py");
     let version = env!("CARGO_PKG_VERSION");
     let python_version = std::fs::read_to_string("../wiring_version.py")?;
+    // A release tag identifies both the Python CLI and the native executable.
     assert_eq!(
         python_version.trim(),
-        format!("__version__ = \"{version}\"")
+        format!("__version__ = \"{version}\""),
+        "wiring_version.py must match the Cargo package version"
     );
     if std::env::var("CARGO_CFG_TARGET_OS").as_deref() == Ok("windows") {
         winresource::WindowsResource::new()
