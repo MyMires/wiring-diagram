@@ -4,7 +4,7 @@
 
 ## 从源码运行
 
-在包含 `wiring.py`、`library/` 和 `projects/` 的仓库根目录运行。源码版使用 Python 3.11+ 和 `pymupdf-lite`。[PDF 引擎](https://pypi.org/project/pymupdf-lite/2.1/)
+在包含 `wiring.py` 和 `library/` 的源码工作区运行。源码版使用 Python 3.11+ 和 `pymupdf-lite`。[PDF 引擎](https://pypi.org/project/pymupdf-lite/2.1/)
 
 ```sh
 python -m pip install -r requirements.txt
@@ -45,6 +45,10 @@ CARGO_TARGET_X86_64_PC_WINDOWS_GNU_RUSTFLAGS="-C target-feature=+crt-static" \
 
 工程 JSON 的 `version` 标识文件格式。`型号@版本` 选定器件模板版本。[工程格式](skills/test-wiring/references/projects.md) · [模板格式](skills/test-wiring/references/templates.md)
 
+## 器件库
+
+用 `part` 查询当前可用模板。每个版本的 `library/型号/版本/README.md` 介绍用途、接线端子、配置方法和使用限制，附工程实例示例。新增模板或改变接口、参数和视图时，同步更新对应版本的说明。[器件文档约定](skills/test-wiring/references/templates.md#维护器件文档)
+
 ## 示例工程
 
 `library/` 存可复用的器件模板，`projects/` 存接线工程和生成图。模板目录使用中文名称，保留实际型号和接口缩写。模板目录名与 `part.json` 的 `id` 一致，工程可用 `"template": "气阀控制"` 选最高数字版本，或用 `"template": "气阀控制@1"` 固定第 1 版。实例的 `name` 可单独设置显示名称。旧工程中的英文模板标识仍可解析。
@@ -55,19 +59,10 @@ CARGO_TARGET_X86_64_PC_WINDOWS_GNU_RUSTFLAGS="-C target-feature=+crt-static" \
 
 [`projects/zhongsheng-voltage`](projects/zhongsheng-voltage/) 是 16 入 16 出继电器板和 8 通道电压采集模块的单页接线。网络可使用中文原名。若参考图只给出本工程内的一个端子及外部网名，在该网络设置 `"external": true`，并保留本工程已知的端子。
 
-中盛模板的实例可以填写 `"station": "01"`。继电器板可在 `parameters` 中指定 `inputs`、`outputs`（各 1–16），电压采集模块可指定 `channels`（1–8）。省略参数时使用原图的完整通道数。减少通道会裁掉编号超出配置的端子并重新排版，保留其余端子的 ID、通信和供电接口。若网络仍引用已裁掉的端子，校验会报错。当前范围来自参考模板，其他实体型号的管脚以其资料为准。
-
-中盛继电器模块和电压采集模块的直流输入统一引用 `DC+` 和 `DC-`。旧工程仍可使用中盛继电器的 `V+` 和 `V-` 引用。
-
-用 `python wiring.py part 中盛8通道电压采集模块@1 --parameters '{"channels":4}'` 查询指定通道数的可用端子。参见 [参数样例](projects/zhongsheng-voltage/project-channels.json)及其[出图](projects/zhongsheng-voltage/wiring-channels.svg)。
-
-`行程开关@1` 可由 `parameters.count` 生成 1–9 只行程开关，由 `parameters.start` 指定起始编号，默认从 S1 开始。每只开关提供独立的 1、2、3 端子，例如 `switches.S2-2`。在工程 `nets` 中填写所需接线，参见 [S2、S3 串接样例](projects/limit-switch/project.json)。
-
-`中间继电器` 可用 `parameters.channels` 设置 1–9 组转换触点，默认两组。每组有 `COMn`、`NOn`、`NCn`，所有组共用 `COIL-A` 和 `COIL-B`。参考[四组触点工程](projects/中间继电器/project.json)和[生成图](projects/中间继电器/wiring.svg)。
-
-[`开关电源@1`](library/开关电源/1/part.json) 提供 `L`、`N`、`PE`、`+V`、`-V`。可用实例的 `name` 和 `note` 显示设备名称和输出规格。[气阀控制工程](projects/air-valve-control/project.json) 展示 `气阀控制@1` 的三个外部端子和四个可配置的内部开关位号。
-
-常用电路元件也使用 `library/` 下的模板。电阻、功率电阻、保险丝、二极管、发光二极管、电容、极性电容、电感、常开按钮和常闭按钮可直接加入工程。规格写入实例的 `note`，例如 `20 Ω / 100 W`。参见[示例工程](projects/常用电路元件/project.json)、[继电器与功率电阻接线](projects/常用电路元件/wiring-p01.svg)和[元件符号一览](projects/常用电路元件/wiring-p02.svg)。
+- 中盛参数化工程展示站号和通道数设置。[工程](projects/zhongsheng-voltage/project-channels.json) · [接线图](projects/zhongsheng-voltage/wiring-channels.svg) · [继电器用法](library/中盛16入16出继电器模块/1/README.md) · [采集模块用法](library/中盛8通道电压采集模块/1/README.md)
+- 行程开关与中间继电器工程展示重复开关和多组转换触点。[S2、S3 串接工程](projects/limit-switch/project.json) · [四组触点工程](projects/中间继电器/project.json) · [四组触点接线图](projects/中间继电器/wiring.svg)
+- 气阀控制和治具供电工程展示组合线路及其可配置的开关位号。[气阀控制工程](projects/air-valve-control/project.json) · [治具供电工程](projects/治具供电/project.json) · [治具供电接线图](projects/治具供电/wiring.svg)
+- 常用电路元件工程展示符号、规格备注和串联接线。[工程](projects/常用电路元件/project.json) · [继电器与功率电阻接线](projects/常用电路元件/wiring-p01.svg) · [元件符号一览](projects/常用电路元件/wiring-p02.svg)
 
 `render` 根据扩展名出图。多页 SVG 使用 `wiring-p01.svg`、`wiring-p02.svg` 等文件名。SVG 文字以矢量轮廓输出，以保持显示一致，原文保存在图的描述元素中。
 

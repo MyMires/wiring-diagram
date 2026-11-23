@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "title": "测试治具接线图",
+  "source": "根据治具电源参考图绘制",
+  "sheets": [{"id": "P01", "title": "治具电源"}],
+  "instances": [
+    {"id": "power", "template": "治具供电@1", "reference": "PWR1", "sheet": "P01"}
+  ],
+  "nets": [
+    {"name": "市电-220V-L", "members": ["power.L"], "external": true},
+    {"name": "市电-220V-PE", "members": ["power.PE"], "external": true},
+    {"name": "市电-220V-N", "members": ["power.N"], "external": true}
+  ]
+}

@@ -5,10 +5,10 @@ description: 根据接线参考图、接口资料或实物照片制作测试接�
 
 # 测试接线
 
-从包含 `wiring.py`、`library/` 和 `projects/` 的仓库根目录工作。建库或修改模板时使用 `python wiring.py`。已有工程也可用 `wiring.exe` 查询、校验和出图，EXE 使用构建时内置的器件库。[运行与构建说明](../../README.md)
+从接线工具的源码工作区运行 `python wiring.py`，或用 `wiring.exe` 查询、校验和出图。建库或修改模板时使用源码版。EXE 使用构建时内置的器件库。工程 JSON 路径由任务指定。
 
-1. 用 `part` 查库。用 `part 型号` 查最新模板，或用 `part 型号@版本` 查询固定版本。工程实例带 `parameters` 时，给 `part` 传同一组 `--parameters`，确认本次配置可用的端子。
-2. 建立或修改模板时，根据参考资料确认型号、端子、次序、方向和视图。先让模板通过 `part` 检查，再引用到工程。[制作模块模板](references/templates.md)
+1. 用 `part` 查询当前工具可用的模板。用 `part 型号` 查最新模板，或用 `part 型号@版本` 查询固定版本。工程实例带 `parameters` 时，用同一组 `--parameters` 查询有效端子。需要了解用途、用法或限制时，按查询到的型号和版本查阅器件自己的 `README.md`。[器件文档约定](references/templates.md#维护器件文档)
+2. 建立或修改模板时，根据参考资料确认型号、端子、次序、方向和视图，同步维护该版本的说明。先让模板通过 `part` 检查，再引用到工程。[制作器件模板](references/templates.md)
 3. 在工程 JSON 录入实例、图页和网络。将属于同一网络的端子填到同一个 `members` 列表，保留参考资料里的网名。[工程、网络与出图](references/projects.md)
 4. 执行 `validate 工程.json`，逐项对照网络端点。执行 `render 工程.json 输出.svg` 或 `.pdf`，检查引线起点、网名对齐和跨页同名网络，按本次工程要求核对照片定位和配色。
 

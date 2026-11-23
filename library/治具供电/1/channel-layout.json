@@ -1,0 +1,6 @@
+{
+  "model": "AC 220 V",
+  "labels": {
+    "main_switch": "S{main_switch}"
+  }
+}
