@@ -66,6 +66,22 @@ pub struct Template {
     pub anchors: Vec<Anchor>,
 }
 
+impl Template {
+    pub fn component_anchors(&self) -> Option<[usize; 2]> {
+        let [a, b] = self.anchors.as_slice() else {
+            return None;
+        };
+        if !matches!(self.asset, Asset::Symbol(_)) || a.y != b.y {
+            return None;
+        }
+        match (a.side, b.side) {
+            (Side::Left, Side::Right) if a.x < b.x => Some([0, 1]),
+            (Side::Right, Side::Left) if b.x < a.x => Some([1, 0]),
+            _ => None,
+        }
+    }
+}
+
 pub struct Photo {
     pub width: f32,
     pub height: f32,

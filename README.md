@@ -60,9 +60,11 @@ CARGO_TARGET_X86_64_PC_WINDOWS_GNU_RUSTFLAGS="-C target-feature=+crt-static" \
 [`projects/zhongsheng-voltage`](projects/zhongsheng-voltage/) 是 16 入 16 出继电器板和 8 通道电压采集模块的单页接线。网络可使用中文原名。若参考图只给出本工程内的一个端子及外部网名，在该网络设置 `"external": true`，并保留本工程已知的端子。
 
 - 中盛参数化工程展示站号和通道数设置。[工程](projects/zhongsheng-voltage/project-channels.json) · [接线图](projects/zhongsheng-voltage/wiring-channels.svg) · [继电器用法](library/中盛16入16出继电器模块/1/README.md) · [采集模块用法](library/中盛8通道电压采集模块/1/README.md)
+- 中盛继电器串联示例将 100 Ω 和 1 kΩ 电阻画在模块两侧的端子引线上。[工程](projects/zhongsheng-voltage/project-inline.json) · [接线图](projects/zhongsheng-voltage/wiring-inline.svg)
+- 多配件示例在同一页展示开关电源、中盛继电器、电压采集模块、串联电阻和独立电容。[工程](projects/zhongsheng-voltage/project-multi-part.json) · [接线图](projects/zhongsheng-voltage/wiring-multi-part.svg)
 - 行程开关与中间继电器工程展示重复开关和多组转换触点。[S2、S3 串接工程](projects/limit-switch/project.json) · [四组触点工程](projects/中间继电器/project.json) · [四组触点接线图](projects/中间继电器/wiring.svg)
 - 气阀控制和治具供电工程展示组合线路及其可配置的开关位号。[气阀控制工程](projects/air-valve-control/project.json) · [治具供电工程](projects/治具供电/project.json) · [治具供电接线图](projects/治具供电/wiring.svg)
-- 常用电路元件工程展示符号、规格备注和串联接线。[工程](projects/常用电路元件/project.json) · [继电器与功率电阻接线](projects/常用电路元件/wiring-p01.svg) · [元件符号一览](projects/常用电路元件/wiring-p02.svg)
+- 常用电路元件工程展示独立符号及串画到继电器引线上的功率电阻。在元件实例填写 `inline_at` 选择组合端子，接线仍由 `nets` 定义。[工程](projects/常用电路元件/project.json) · [继电器与功率电阻接线](projects/常用电路元件/wiring-p01.svg) · [元件符号一览](projects/常用电路元件/wiring-p02.svg) · [组合绘制规则](skills/test-wiring/references/projects.md#独立或组合绘制)
 
 `render` 根据扩展名出图。多页 SVG 使用 `wiring-p01.svg`、`wiring-p02.svg` 等文件名。SVG 文字以矢量轮廓输出，以保持显示一致，原文保存在图的描述元素中。
 

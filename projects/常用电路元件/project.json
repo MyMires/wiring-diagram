@@ -8,7 +8,7 @@
   ],
   "instances": [
     {"id": "relay", "reference": "K12", "template": "中间继电器-双常开@1", "sheet": "P01"},
-    {"id": "load", "reference": "R6", "template": "功率电阻@1", "sheet": "P01", "name": "黄金铝壳电阻", "note": "20 Ω / 100 W"},
+    {"id": "load", "reference": "R6", "template": "功率电阻@1", "sheet": "P01", "name": "黄金铝壳电阻", "note": "20 Ω 100 W", "inline_at": "relay.NO1-B"},
     {"id": "resistor", "reference": "R1", "template": "电阻@1", "sheet": "P02"},
     {"id": "power_resistor", "reference": "R2", "template": "功率电阻@1", "sheet": "P02"},
     {"id": "fuse", "reference": "F1", "template": "保险丝@1", "sheet": "P02"},

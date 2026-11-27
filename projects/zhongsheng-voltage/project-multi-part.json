@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "title": "中盛模块接线演示",
+  "source": "DUT 点位为示例",
+  "sheets": [
+    {"id": "P01", "title": "供电、继电器切换与电压采集"}
+  ],
+  "instances": [
+    {"id": "supply", "template": "开关电源@1", "reference": "PS1", "sheet": "P01"},
+    {"id": "relay", "template": "中盛16入16出继电器模块@1", "reference": "K1", "sheet": "P01", "parameters": {"inputs": 1, "outputs": 4}},
+    {"id": "meter", "template": "中盛8通道电压采集模块@1", "reference": "M1", "sheet": "P01", "parameters": {"channels": 2}},
+    {"id": "r1", "template": "电阻@1", "reference": "R1", "sheet": "P01", "note": "1 kΩ", "inline_at": "relay.NO1"},
+    {"id": "r2", "template": "电阻@1", "reference": "R2", "sheet": "P01", "note": "1 kΩ", "inline_at": "relay.NO3"},
+    {"id": "c1", "template": "电容@1", "reference": "C1", "sheet": "P01", "note": "100 nF"}
+  ],
+  "nets": [
+    {"name": "PS1-+V", "members": ["supply.+V", "relay.DC+", "meter.DC+"]},
+    {"name": "PS1--V", "members": ["supply.-V", "relay.DC-", "meter.DC-"]},
+    {"name": "DUT-TP1", "members": ["relay.COM1"], "external": true},
+    {"name": "DUT-TP2", "members": ["relay.COM3"], "external": true},
+    {"name": "K1-NO1", "members": ["relay.NO1", "r1.1"]},
+    {"name": "K1-NO3", "members": ["relay.NO3", "r2.1"]},
+    {"name": "R1-2", "members": ["r1.2", "meter.A1+", "c1.1"]},
+    {"name": "R2-2", "members": ["r2.2", "meter.A2+"]},
+    {"name": "DUT-J1-1", "members": ["meter.A1-", "meter.A2-", "c1.2"], "external": true}
+  ]
+}

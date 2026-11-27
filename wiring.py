@@ -47,6 +47,9 @@ SYMBOL_TEXT_COLORS = {
 SIDES = ("left", "right", "top", "bottom")
 FIELDS = ("name", "reference", "note")
 MODULE_GAP = 12
+COMPONENT_SCALE = .4
+COMPONENT_FONT = 9
+COMPONENT_BASELINE = 7
 SVG_NAMESPACE = "http://www.w3.org/2000/svg"
 XLINK_NAMESPACE = "http://www.w3.org/1999/xlink"
 
@@ -84,6 +87,15 @@ class Template:
     size: tuple[float, float]
     anchors: dict[str, tuple[float, float, str]]
     view: str
+
+    def component_anchors(self):
+        if self.view != "symbol" or len(self.anchors) != 2:
+            return None
+        left, right = sorted(self.anchors, key=lambda pin: self.anchors[pin][0])
+        lx, ly, ls = self.anchors[left]
+        rx, ry, rs = self.anchors[right]
+        if ls == "left" and rs == "right" and lx < rx and ly == ry:
+            return left, right
 
 
 def channel_symbol(layout, counts):
@@ -418,7 +430,29 @@ def project_data(path):
             canonical = legacy_endpoints.get(endpoint, endpoint)
             require(canonical in endpoint_names and canonical not in members, f"端子不存在或已加入网络 {endpoint}")
             members[canonical] = name
-    return data, sheets, instances, templates, nets, members, endpoint_names
+    inline = {}
+    for ident, device in instances.items():
+        target = device.get("inline_at")
+        if target is None:
+            continue
+        reference = device["reference"]
+        require(isinstance(target, str), f"{reference} 的 inline_at 应填写 实例ID.端子ID")
+        target = legacy_endpoints.get(target, target)
+        host_id, _, host_pin = target.partition(".")
+        require(host_id != ident and target in endpoint_names, f"{reference} 的组合端子不存在 {target!r}")
+        host = instances[host_id]
+        require(device["sheet"] == host["sheet"] and host.get("inline_at") is None,
+                f"{reference} 应接到同页独立绘制的配件端子 {target}")
+        pins = templates[ident].component_anchors()
+        require(pins is not None, f"{reference} 的组合绘制需要左右同高的两端符号")
+        net = members.get(target)
+        require(net is not None and not nets[net].get("external") and len(nets[net]["members"]) == 2,
+                f"{reference} 和 {target} 应通过只含这两个端子的网络连接")
+        near = next((pin for pin in pins if members.get(f"{ident}.{pin}") == net), None)
+        require(near is not None, f"{reference} 和 {target} 应通过只含这两个端子的网络连接")
+        far = pins[1] if near == pins[0] else pins[0]
+        inline.setdefault(host_id, {})[host_pin] = (ident, near, far)
+    return data, sheets, instances, templates, nets, members, endpoint_names, inline
 
 
 def place_rows(preferred, low, high, spacing):
@@ -432,6 +466,77 @@ def place_rows(preferred, low, high, spacing):
 
 
 @dataclass
+class InlinePart:
+    template: Template
+    near: tuple
+    far: tuple
+    caption: str
+
+    def width(self):
+        return max(self.template.size[0] * COMPONENT_SCALE, width(self.caption, COMPONENT_FONT) + 6)
+
+    def extents(self):
+        above = self.near[1] * COMPONENT_SCALE
+        below = self.template.size[1] * COMPONENT_SCALE - above + COMPONENT_BASELINE + 3
+        return above, below
+
+
+@dataclass
+class Lead:
+    anchor: tuple
+    name: str
+    component: InlinePart | None
+
+
+def component_gap(first, second):
+    return first.extents()[1] + second.extents()[0] + 2
+
+
+def lead_gap(first, second, spacing, font):
+    return font if bool(first.component) != bool(second.component) else spacing
+
+
+def lead_row_limits(leads, high, spacing, font):
+    limits = [high] * len(leads)
+    next_component = None
+    for i in range(len(leads) - 1, -1, -1):
+        if i + 1 < len(leads):
+            limits[i] = limits[i + 1] - lead_gap(leads[i], leads[i + 1], spacing, font)
+        if component := leads[i].component:
+            limits[i] = min(limits[i], high - max(0, component.extents()[1] - 10))
+            if next_component is not None:
+                limits[i] = min(limits[i], limits[next_component] - component_gap(component, leads[next_component].component))
+            next_component = i
+    return limits
+
+
+def lead_rows(leads, preferred, low, high, spacing, font):
+    limits = lead_row_limits(leads, high, spacing, font)
+    rows = []
+    previous_component = None
+    for i, (lead, position) in enumerate(zip(leads, preferred, strict=True)):
+        floor = rows[-1] + lead_gap(leads[i - 1], lead, spacing, font) if rows else low
+        if lead.component:
+            if previous_component is not None:
+                floor = max(floor, rows[previous_component]
+                            + component_gap(leads[previous_component].component, lead.component))
+            previous_component = i
+        rows.append(min(max(floor, position), limits[i]))
+    return rows
+
+
+def vertical_rail(leads, side, spacing, padding):
+    sizes = [lead.component.extents() for lead in leads if lead.component]
+    if not sizes:
+        return 10, spacing, padding + len(leads) * spacing
+    above, below = map(max, zip(*sizes))
+    step = max(spacing, above + below + 3)
+    inner, outer = (below, above) if side == "top" else (above, below)
+    start = max(10, inner + 3)
+    return start, step, start + (len(leads) - 1) * step + outer + 3
+
+
+@dataclass
 class DeviceBlock:
     template: Template
     heading: str
@@ -441,38 +546,75 @@ class DeviceBlock:
     insets: tuple[float, float, float, float]
     net_font: int
     net_spacing: int
+    compact_caption: bool
+    rails: dict
+    component_columns: dict
 
     def horizontal_space(self, scale):
         left, _, right, _ = self.insets
         half_symbol = self.template.size[0] * scale / 2
-        half_caption = max(width(self.heading, 14), width(self.note, 9)) / 2 + 10
+        if self.compact_caption:
+            half_caption = width(self.heading, COMPONENT_FONT) / 2 + 6
+        else:
+            half_caption = max(width(self.heading, 14), width(self.note, 9)) / 2 + 10
         return max(half_symbol + left, half_caption), max(half_symbol + right, half_caption)
 
     def size(self, scale):
         _, top, _, bottom = self.insets
         h = self.template.size[1]
-        label_rows = max(len(self.grouped["left"]), len(self.grouped["right"]))
-        return (sum(self.horizontal_space(scale)),
-                max(h * scale + top + bottom, 60 + max(0, label_rows - 1) * self.net_spacing))
+        minimum = 18 if self.compact_caption else 60
+        for side in ("left", "right"):
+            leads = self.grouped[side]
+            if leads:
+                base = 18 if self.compact_caption else 60
+                limits = lead_row_limits(leads, 0, self.net_spacing, self.net_font)
+                minimum = max(minimum, base - limits[0])
+        return sum(self.horizontal_space(scale)), max(h * scale + top + bottom, minimum)
 
 
-def device_block(device, template, tags):
+def component_caption(device, template):
+    name = device.get("name") or template.public["name"]
+    note = device.get("note") or template.public["model"]
+    station = f"站号 {device['station']}" if device.get("station") else ""
+    return " ".join(part for part in (device["reference"], name, note, station) if part)
+
+
+def device_block(device, template, tags, inline):
+    compact_caption = template.component_anchors() is not None
     heading = f"{device['reference']}   {device.get('name') or template.public['name']}"
     note = device.get("note") or template.public["model"]
-    if device.get("station"):
+    if compact_caption:
+        heading, note = component_caption(device, template), ""
+    elif device.get("station"):
         note += f" · 站号 {device['station']}"
     grouped = {side: [] for side in SIDES}
     for pin, tag in tags.items():
         anchor = template.anchors[pin]
-        grouped[anchor[2]].append((anchor, tag))
+        component, far_net = inline.get(pin, (None, tag))
+        grouped[anchor[2]].append(Lead(anchor, far_net, component))
+    for side, leads in grouped.items():
+        leads.sort(key=lambda lead: lead.anchor[0 if side in ("top", "bottom") else 1])
     compact = bool(template.public.get("parameters")) or max(map(len, grouped.values())) >= 16
     net_font, net_spacing = (8, 9) if compact else (10, 15)
     padding = 12 if template.view == "photo" else 6
-    reserve = {side: max((width(name, net_font, True) + 32 for _, name in grouped[side]), default=padding)
-               for side in SIDES}
-    insets = (reserve["left"], 38 + padding + len(grouped["top"]) * net_spacing,
-              max(reserve[side] for side in SIDES[1:]), padding + len(grouped["bottom"]) * net_spacing)
-    return DeviceBlock(template, heading, note, grouped, tuple(tags), insets, net_font, net_spacing)
+    reserve = {}
+    component_columns = {}
+    for side, leads in grouped.items():
+        ordinary = [width(lead.name, net_font, True) for lead in leads if not lead.component]
+        attached = [lead for lead in leads if lead.component]
+        reserve[side] = max(ordinary) + 32 if ordinary else padding
+        if attached:
+            # Keep the small print in its own column so unrelated leads can stay straight.
+            start = max(ordinary) + 12 if ordinary else 0
+            span = max(lead.component.width() for lead in attached)
+            far_labels = max(width(lead.name, net_font, True) for lead in attached)
+            component_columns[side] = (start, span)
+            reserve[side] = max(reserve[side], 32 + start + span + far_labels)
+    rails = {side: vertical_rail(grouped[side], side, net_spacing, padding) for side in ("top", "bottom")}
+    insets = (reserve["left"], (0 if compact_caption else 38) + rails["top"][2],
+              max(reserve[side] for side in SIDES[1:]), rails["bottom"][2] + (10 if compact_caption else 0))
+    return DeviceBlock(template, heading, note, grouped, tuple(tags), insets, net_font, net_spacing,
+                       compact_caption, rails, component_columns)
 
 
 def pack_shelves(sizes, available_width, available_height):
@@ -496,19 +638,71 @@ def layout_devices(blocks, page_width, page_height, sheet):
                   else max(block.template.public["min_scale"], .95 * factor) for block in blocks]
         sizes = [block.size(scale) for block, scale in zip(blocks, scales, strict=True)]
         if (positions := pack_shelves(sizes, page_width, page_height)) is not None:
-            return zip(positions, blocks, scales, strict=True)
+            break
         if (columns := pack_shelves([(h, w) for w, h in sizes], page_height, page_width)) is not None:
-            return zip(((y, x) for x, y in columns), blocks, scales, strict=True)
-    raise ValueError(f"图页 {sheet} 的模块及网络标签空间不足，请将部分模块移至其他图页")
+            positions = [(y, x) for x, y in columns]
+            aligned = []
+            start = 0
+            for column in dict.fromkeys(x for x, _ in positions):
+                indexes = [i for i, (x, _) in enumerate(positions) if x == column]
+                spaces = [blocks[i].horizontal_space(scales[i]) for i in indexes]
+                left, right = map(max, zip(*spaces))
+                aligned.extend((start + left - space[0], positions[i][1]) for i, space in zip(indexes, spaces, strict=True))
+                start += left + right + MODULE_GAP
+            if start - MODULE_GAP <= page_width:
+                positions = aligned
+            break
+    else:
+        raise ValueError(f"图页 {sheet} 的模块及网络标签空间不足，请将部分模块移至其他图页")
+    used = max(x + w for (x, _), (w, _) in zip(positions, sizes, strict=True))
+    offset = (page_width - used) / 2
+    return zip(((x + offset, y) for x, y in positions), blocks, scales, strict=True)
+
+
+def draw_symbol(page, box, asset, flipped=False):
+    if flipped:
+        root = ET.fromstring(asset)
+        contents = list(root)
+        root[:] = []
+        group = ET.SubElement(root, f"{{{SVG_NAMESPACE}}}g", {"transform": f"translate({root.attrib['viewBox'].split()[2]} 0) scale(-1 1)"})
+        group.extend(contents)
+        asset = ET.tostring(root, encoding="utf-8")
+    with pdf.open(stream=asset, filetype="svg") as symbol:
+        with pdf.open(stream=symbol.convert_to_pdf(), filetype="pdf") as vector:
+            page.show_pdf_page(box, vector, 0, keep_proportion=False)
+
+
+def draw_inline(page, component, start, elbow, rail, row, direction, color, has_label, column):
+    template = component.template
+    clearance, span = column
+    center = rail + direction * (clearance + span / 2)
+    flipped = (component.far[0] - component.near[0]) * direction < 0
+    scale = COMPONENT_SCALE
+    w, h = template.size
+    mid = (component.near[0] + component.far[0]) / 2
+    x0 = center - (w - mid if flipped else mid) * scale
+    y0 = row - component.near[1] * scale
+    box = pdf.Rect(x0, y0, x0 + w * scale, y0 + h * scale)
+    half = abs(component.far[0] - component.near[0]) * scale / 2
+    page.draw_polyline([start, elbow, (rail, row)], color=color, width=1.05)
+    page.draw_line((rail, row), (center - direction * half, row), color=color, width=1.05)
+    draw_symbol(page, box, template.asset, flipped)
+    text(page, center - width(component.caption, COMPONENT_FONT) / 2, box.y1 + COMPONENT_BASELINE,
+         component.caption, COMPONENT_FONT, color=MUTED)
+    rail += direction * (clearance + span)
+    if has_label:
+        page.draw_line((center + direction * half, row), (rail, row), color=color, width=1.05)
+    return rail
 
 
 def draw_device(page, x0, y0, block, scale, colors):
     dw, dh = block.size(scale)
     x1, y1 = x0 + dw, y0 + dh
     center = x0 + block.horizontal_space(scale)[0]
-    text(page, center - width(block.heading, 14) / 2, y0 + 19, block.heading, 14)
-    text(page, center - width(block.note, 9) / 2, y0 + 32, block.note, 9, color=MUTED)
-    page.draw_line((x0 + 10, y0 + 38), (x1 - 10, y0 + 38), color=RULE, width=.5)
+    if not block.compact_caption:
+        text(page, center - width(block.heading, 14) / 2, y0 + 19, block.heading, 14)
+        text(page, center - width(block.note, 9) / 2, y0 + 32, block.note, 9, color=MUTED)
+        page.draw_line((x0 + 10, y0 + 38), (x1 - 10, y0 + 38), color=RULE, width=.5)
 
     template = block.template
     _, top, _, _ = block.insets
@@ -519,30 +713,40 @@ def draw_device(page, x0, y0, block, scale, colors):
     if real_photo:
         page.insert_image(box, filename=template.asset)
     else:
-        with pdf.open(stream=template.asset, filetype="svg") as symbol:
-            with pdf.open(stream=symbol.convert_to_pdf(), filetype="pdf") as vector:
-                page.show_pdf_page(box, vector, 0, keep_proportion=False)
+        draw_symbol(page, box, template.asset)
+    if block.compact_caption:
+        text(page, center - width(block.heading, COMPONENT_FONT) / 2, box.y1 + 6,
+             block.heading, COMPONENT_FONT, color=MUTED)
 
     for side, entries in block.grouped.items():
+        if not entries:
+            continue
         is_vertical = side in ("top", "bottom")
-        entries.sort(key=lambda item: item[0][0 if is_vertical else 1])
-        preferred = [oy + p[1] * scale for p, _ in entries]
-        rows = place_rows(preferred, y0 + 50, y1 - 10, block.net_spacing) if not is_vertical else []
-        for index, ((x, y, _), name) in enumerate(entries):
+        if not is_vertical:
+            preferred = [oy + lead.anchor[1] * scale for lead in entries]
+            low = y0 + (6 if block.compact_caption else 50)
+            rows = lead_rows(entries, preferred, low, y1 - 10, block.net_spacing, block.net_font)
+        for index, lead in enumerate(entries):
+            x, y, _ = lead.anchor
             a, b = ox + x * scale, oy + y * scale
             if is_vertical:
-                step = len(entries) - index - 1
-                offset = 10 + step * block.net_spacing
+                first, spacing, _ = block.rails[side]
+                offset = first + (len(entries) - index - 1) * spacing
                 row = box.y0 - offset if side == "top" else box.y1 + offset
                 elbow = (a, row)
             else:
                 row = rows[index]
                 elbow = (a + (-6 if side == "left" else 6), b)
             rail = box.x0 - 20 if side == "left" else box.x1 + 20
-            page.draw_polyline([(a, b), elbow, (rail, row)], color=colors["external"], width=1.05)
-            tx = rail + (-5 if side == "left" else 5)
-            text(page, tx, row, name, block.net_font, color=colors["external"], mono=True,
-                 right=side == "left", center_y=True)
+            direction = -1 if side == "left" else 1
+            if lead.component:
+                rail = draw_inline(page, lead.component, (a, b), elbow, rail, row, direction,
+                                   colors["external"], bool(lead.name), block.component_columns[side])
+            else:
+                page.draw_polyline([(a, b), elbow, (rail, row)], color=colors["external"], width=1.05)
+            if lead.name:
+                text(page, rail + direction * 5, row, lead.name, block.net_font, color=colors["external"], mono=True,
+                     right=side == "left", center_y=True)
 
     if real_photo:
         marks = []
@@ -599,7 +803,7 @@ def draw_photo_marks(page, box, marks, *, color, compact=False):
 
 
 def compose(path):
-    data, sheets, devices, templates, nets, members, endpoint_names = project_data(path)
+    data, sheets, devices, templates, nets, members, endpoint_names, inline = project_data(path)
     colors = {role: tuple(channel / 255 for channel in bytes.fromhex(value[1:]))
               for role, value in data["colors"].items()}
     sheet_order = {sheet: i for i, sheet in enumerate(sheets)}
@@ -627,11 +831,19 @@ def compose(path):
             edge = 394 if photo else 810
             blocks = []
             for device in rows:
+                if device.get("inline_at") is not None:
+                    continue
                 ident = device["id"]
                 template = templates[ident]
                 tags = {pin: name for pin in template.anchors
                         if (name := members.get(f"{ident}.{pin}")) is not None}
-                blocks.append(device_block(device, template, tags))
+                attached = {}
+                for pin, (component, near, far) in inline.get(ident, {}).items():
+                    other = templates[component]
+                    attached[pin] = (InlinePart(other, other.anchors[near], other.anchors[far],
+                                                component_caption(devices[component], other)),
+                                     members.get(f"{component}.{far}", ""))
+                blocks.append(device_block(device, template, tags, attached))
             for (x, y), block, scale in layout_devices(blocks, edge - 32, 430, sheet):
                 draw_device(page, 32 + x, 108 + y, block, scale, colors)
             if photo:

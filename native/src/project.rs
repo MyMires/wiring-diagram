@@ -50,6 +50,7 @@ pub struct Device {
     #[serde(default)]
     pub note: String,
     pub station: Option<String>,
+    pub inline_at: Option<String>,
 }
 
 #[derive(Deserialize)]
@@ -60,6 +61,12 @@ struct Net {
     external: bool,
 }
 
+pub struct InlineLink {
+    pub device: usize,
+    pub near: usize,
+    pub far: usize,
+}
+
 pub struct Plan {
     pub title: String,
     pub source: String,
@@ -68,6 +75,7 @@ pub struct Plan {
     pub sheets: Vec<Sheet>,
     pub devices: Vec<(Device, Template)>,
     pub members: HashMap<String, String>,
+    pub inline: HashMap<String, InlineLink>,
     pub endpoint_names: HashMap<String, String>,
     pub nets: Map<String, Value>,
     root: std::path::PathBuf,
@@ -195,6 +203,7 @@ pub fn load(path: &Path) -> Result<Plan> {
 
     let mut nets = Map::new();
     let mut members = HashMap::new();
+    let mut internal_pairs = HashSet::new();
     for net in project.nets {
         ensure!(
             printable(&net.name) && !nets.contains_key(&net.name),
@@ -221,7 +230,56 @@ pub fn load(path: &Path) -> Result<Plan> {
             );
             endpoints.push(name);
         }
+        if !net.external && endpoints.len() == 2 {
+            internal_pairs.insert(net.name.clone());
+        }
         nets.insert(net.name, json!(endpoints));
+    }
+    let hosts: HashMap<_, _> = devices
+        .iter()
+        .map(|(device, _)| (device.id.as_str(), device))
+        .collect();
+    let mut inline = HashMap::new();
+    for (index, (device, template)) in devices.iter().enumerate() {
+        let Some(target) = &device.inline_at else {
+            continue;
+        };
+        let target = legacy_endpoints.get(target).unwrap_or(target);
+        let reference = &device.reference;
+        let (host_id, _) = target
+            .split_once('.')
+            .with_context(|| format!("{reference} 的 inline_at 应填写 实例ID.端子ID"))?;
+        ensure!(
+            host_id != device.id && endpoint_names.contains_key(target),
+            "{reference} 的组合端子不存在 {target:?}"
+        );
+        let host = hosts[host_id];
+        ensure!(
+            device.sheet == host.sheet && host.inline_at.is_none(),
+            "{reference} 应接到同页独立绘制的配件端子 {target}"
+        );
+        let pins = template
+            .component_anchors()
+            .with_context(|| format!("{reference} 的组合绘制需要左右同高的两端符号"))?;
+        let near = members
+            .get(target)
+            .filter(|net| internal_pairs.contains(*net))
+            .and_then(|net| {
+                pins.into_iter().find(|pin| {
+                    let key = format!("{}.{}", device.id, template.anchors[*pin].pin);
+                    members.get(&key) == Some(net)
+                })
+            })
+            .with_context(|| format!("{reference} 和 {target} 应通过只含这两个端子的网络连接"))?;
+        let far = if near == pins[0] { pins[1] } else { pins[0] };
+        inline.insert(
+            target.clone(),
+            InlineLink {
+                device: index,
+                near,
+                far,
+            },
+        );
     }
     let root = path
         .parent()
@@ -236,6 +294,7 @@ pub fn load(path: &Path) -> Result<Plan> {
         sheets: project.sheets,
         devices,
         members,
+        inline,
         endpoint_names,
         nets,
         root,

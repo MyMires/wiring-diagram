@@ -20,6 +20,9 @@ const INK: &str = "#17293b";
 const MUTED: &str = "#4f6378";
 const RULE: &str = "#bfcdd6";
 const ACCENT: &str = "#1c5c94";
+const COMPONENT_SCALE: f32 = 0.4;
+const COMPONENT_FONT: f32 = 9.0;
+const COMPONENT_BASELINE: f32 = 7.0;
 
 type Point = (f32, f32);
 
@@ -140,49 +143,251 @@ impl Canvas {
         )
         .unwrap();
     }
+
+    fn symbol(&mut self, frame: Box2, scale: f32, svg: &str, flipped: bool) -> Result<()> {
+        let (x, horizontal_scale) = if flipped {
+            (frame.right(), -scale)
+        } else {
+            (frame.x, scale)
+        };
+        write!(
+            self.0,
+            r#"<g transform="translate({x} {}) scale({horizontal_scale} {scale})" font-family="{FONT_NAME}">{svg}</g>"#,
+            frame.y
+        )?;
+        Ok(())
+    }
+}
+
+struct InlinePart<'a> {
+    template: &'a Template,
+    near: &'a Anchor,
+    far: &'a Anchor,
+    caption: String,
+}
+
+impl InlinePart<'_> {
+    fn width(&self) -> f32 {
+        (self.template.size.0 * COMPONENT_SCALE).max(width(&self.caption, COMPONENT_FONT) + 6.0)
+    }
+
+    fn extents(&self) -> Point {
+        let above = self.near.y * COMPONENT_SCALE;
+        let below = self.template.size.1 * COMPONENT_SCALE - above + COMPONENT_BASELINE + 3.0;
+        (above, below)
+    }
+}
+
+struct Lead<'a> {
+    anchor: &'a Anchor,
+    name: &'a str,
+    component: Option<InlinePart<'a>>,
+}
+
+fn component_gap(first: &InlinePart<'_>, second: &InlinePart<'_>) -> f32 {
+    first.extents().1 + second.extents().0 + 2.0
+}
+
+fn lead_gap(first: &Lead<'_>, second: &Lead<'_>, spacing: f32, font: f32) -> f32 {
+    if first.component.is_some() != second.component.is_some() {
+        font
+    } else {
+        spacing
+    }
+}
+
+fn lead_row_limits(leads: &[Lead<'_>], high: f32, spacing: f32, font: f32) -> Vec<f32> {
+    let mut limits = vec![high; leads.len()];
+    let mut next_component: Option<(usize, &InlinePart<'_>)> = None;
+    for (i, lead) in leads.iter().enumerate().rev() {
+        if i + 1 < leads.len() {
+            limits[i] = limits[i + 1] - lead_gap(lead, &leads[i + 1], spacing, font);
+        }
+        if let Some(component) = &lead.component {
+            limits[i] = limits[i].min(high - (component.extents().1 - 10.0).max(0.0));
+            if let Some((next, part)) = next_component {
+                limits[i] = limits[i].min(limits[next] - component_gap(component, part));
+            }
+            next_component = Some((i, component));
+        }
+    }
+    limits
+}
+
+fn lead_rows(
+    leads: &[Lead<'_>],
+    preferred: impl Iterator<Item = f32>,
+    low: f32,
+    high: f32,
+    spacing: f32,
+    font: f32,
+) -> Vec<f32> {
+    let limits = lead_row_limits(leads, high, spacing, font);
+    let mut rows = Vec::with_capacity(leads.len());
+    let mut previous_component: Option<(usize, &InlinePart<'_>)> = None;
+    for (i, (lead, position)) in leads.iter().zip(preferred).enumerate() {
+        let mut floor = rows.last().map_or(low, |row| {
+            row + lead_gap(&leads[i - 1], lead, spacing, font)
+        });
+        if let Some(component) = &lead.component {
+            if let Some((previous, part)) = previous_component {
+                floor = floor.max(rows[previous] + component_gap(part, component));
+            }
+            previous_component = Some((i, component));
+        }
+        rows.push(floor.max(position).min(limits[i]));
+    }
+    rows
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn mixed_leads_keep_pin_height_until_component_captions_need_room() -> Result<()> {
+        let template = crate::library::load("电阻@1", None, None, ACCENT)?;
+        let [near, far] = template.component_anchors().unwrap();
+        let anchor = &template.anchors[near];
+        let ordinary = || Lead {
+            anchor,
+            name: "PS1-1",
+            component: None,
+        };
+        let attached = || Lead {
+            anchor,
+            name: "DUT-TP1",
+            component: Some(InlinePart {
+                template: &template,
+                near: anchor,
+                far: &template.anchors[far],
+                caption: "R1 电阻 1 kΩ".into(),
+            }),
+        };
+        let leads = [ordinary(), attached(), ordinary(), attached()];
+        let straight = [60.0, 68.3, 76.6, 98.225];
+        assert_eq!(
+            lead_rows(&leads, straight.into_iter(), 55.0, 140.0, 9.0, 8.0),
+            straight
+        );
+
+        let close = [60.0, 68.3, 76.6, 85.0];
+        let rows = lead_rows(&leads, close.into_iter(), 55.0, 140.0, 9.0, 8.0);
+        assert_eq!(&rows[..3], &close[..3]);
+        assert!(rows[3] > close[3]);
+        Ok(())
+    }
+}
+
+fn vertical_rail(leads: &[Lead<'_>], side: Side, spacing: f32, padding: f32) -> (f32, f32, f32) {
+    let extents = leads
+        .iter()
+        .filter_map(|lead| lead.component.as_ref().map(InlinePart::extents));
+    let Some((above, below)) = extents.reduce(|a, b| (a.0.max(b.0), a.1.max(b.1))) else {
+        return (10.0, spacing, padding + leads.len() as f32 * spacing);
+    };
+    let step = spacing.max(above + below + 3.0);
+    let (inner, outer) = if side == Side::Top {
+        (below, above)
+    } else {
+        (above, below)
+    };
+    let start = (inner + 3.0).max(10.0);
+    (
+        start,
+        step,
+        start + (leads.len() - 1) as f32 * step + outer + 3.0,
+    )
+}
+
+fn captions<'a>(device: &'a Device, template: &'a Template) -> Result<(&'a str, &'a str)> {
+    let name = if device.name.is_empty() {
+        string(&template.public, "name")?
+    } else {
+        &device.name
+    };
+    let note = if device.note.is_empty() {
+        string(&template.public, "model")?
+    } else {
+        &device.note
+    };
+    Ok((name, note))
+}
+
+fn component_caption(device: &Device, template: &Template) -> Result<String> {
+    let (name, note) = captions(device, template)?;
+    let mut caption = [device.reference.as_str(), name, note]
+        .into_iter()
+        .filter(|part| !part.is_empty())
+        .collect::<Vec<_>>()
+        .join(" ");
+    if let Some(station) = &device.station {
+        write!(caption, " 站号 {station}")?;
+    }
+    Ok(caption)
 }
 
 struct Block<'a> {
     template: &'a Template,
     heading: String,
     note: String,
-    groups: [Vec<(&'a Anchor, &'a str)>; 4],
+    groups: [Vec<Lead<'a>>; 4],
     insets: (f32, f32, f32, f32),
     font_size: f32,
     spacing: f32,
+    compact_caption: bool,
+    rails: [(f32, f32, f32); 2],
+    component_columns: [Point; 4],
 }
 
 impl<'a> Block<'a> {
     fn new(device: &Device, template: &'a Template, plan: &'a Plan) -> Result<Self> {
-        let heading = format!(
-            "{}   {}",
-            device.reference,
-            if device.name.is_empty() {
-                string(&template.public, "name")?
-            } else {
-                &device.name
-            }
-        );
-        let mut note = if device.note.is_empty() {
-            string(&template.public, "model")?
+        let (name, model) = captions(device, template)?;
+        let compact_caption = template.component_anchors().is_some();
+        let (heading, note) = if compact_caption {
+            (component_caption(device, template)?, String::new())
         } else {
-            &device.note
+            let mut note = model.to_owned();
+            if let Some(station) = &device.station {
+                write!(note, " · 站号 {station}")?;
+            }
+            (format!("{}   {name}", device.reference), note)
+        };
+        let mut groups: [Vec<Lead<'_>>; 4] = Default::default();
+        for anchor in &template.anchors {
+            let key = format!("{}.{}", device.id, anchor.pin);
+            let Some(name) = plan.members.get(&key) else {
+                continue;
+            };
+            let (name, component) = if let Some(link) = plan.inline.get(&key) {
+                let (device, template) = &plan.devices[link.device];
+                let far = &template.anchors[link.far];
+                let net = plan.members.get(&format!("{}.{}", device.id, far.pin));
+                (
+                    net.map(String::as_str).unwrap_or(""),
+                    Some(InlinePart {
+                        template,
+                        near: &template.anchors[link.near],
+                        far,
+                        caption: component_caption(device, template)?,
+                    }),
+                )
+            } else {
+                (name.as_str(), None)
+            };
+            let side = SIDES.iter().position(|side| *side == anchor.side).unwrap();
+            groups[side].push(Lead {
+                anchor,
+                name,
+                component,
+            });
         }
-        .to_owned();
-        if let Some(station) = &device.station {
-            write!(note, " · 站号 {station}")?;
+        for (side, group) in SIDES.into_iter().zip(&mut groups) {
+            group.sort_by(|a, b| match side {
+                Side::Top | Side::Bottom => a.anchor.x.total_cmp(&b.anchor.x),
+                Side::Left | Side::Right => a.anchor.y.total_cmp(&b.anchor.y),
+            });
         }
-        let groups = SIDES.map(|side| {
-            template
-                .anchors
-                .iter()
-                .filter(|anchor| anchor.side == side)
-                .filter_map(|anchor| {
-                    let key = format!("{}.{}", device.id, anchor.pin);
-                    plan.members.get(&key).map(|name| (anchor, name.as_str()))
-                })
-                .collect::<Vec<_>>()
-        });
         let compact = template.public["parameters"]
             .as_object()
             .is_some_and(|p| !p.is_empty())
@@ -193,18 +398,38 @@ impl<'a> Block<'a> {
         } else {
             6.0
         };
-        let reserve = groups.each_ref().map(|group| {
-            group
+        let mut reserve = [padding; 4];
+        let mut component_columns = [(0.0, 0.0); 4];
+        for (i, group) in groups.iter().enumerate() {
+            let ordinary = group
                 .iter()
-                .map(|(_, name)| width(name, font_size) + 32.0)
-                .reduce(f32::max)
-                .unwrap_or(padding)
-        });
+                .filter(|lead| lead.component.is_none())
+                .map(|lead| width(lead.name, font_size))
+                .reduce(f32::max);
+            if let Some(ordinary) = ordinary {
+                reserve[i] = ordinary + 32.0;
+            }
+            let attached = group.iter().filter_map(|lead| {
+                lead.component
+                    .as_ref()
+                    .map(|part| (part.width(), width(lead.name, font_size)))
+            });
+            if let Some((span, far_labels)) = attached.reduce(|a, b| (a.0.max(b.0), a.1.max(b.1))) {
+                // Keep the small print in its own column so unrelated leads can stay straight.
+                let start = ordinary.map_or(0.0, |ordinary| ordinary + 12.0);
+                component_columns[i] = (start, span);
+                reserve[i] = reserve[i].max(32.0 + start + span + far_labels);
+            }
+        }
+        let rails = [
+            vertical_rail(&groups[2], Side::Top, spacing, padding),
+            vertical_rail(&groups[3], Side::Bottom, spacing, padding),
+        ];
         let insets = (
             reserve[0],
-            38.0 + padding + groups[2].len() as f32 * spacing,
+            (if compact_caption { 0.0 } else { 38.0 }) + rails[0].2,
             reserve[1].max(reserve[2]).max(reserve[3]),
-            padding + groups[3].len() as f32 * spacing,
+            rails[1].2 + if compact_caption { 10.0 } else { 0.0 },
         );
         Ok(Self {
             template,
@@ -214,12 +439,19 @@ impl<'a> Block<'a> {
             insets,
             font_size,
             spacing,
+            compact_caption,
+            rails,
+            component_columns,
         })
     }
 
     fn horizontal_space(&self, scale: f32) -> (f32, f32) {
         let half_symbol = self.template.size.0 * scale / 2.0;
-        let half_caption = width(&self.heading, 14.0).max(width(&self.note, 9.0)) / 2.0 + 10.0;
+        let half_caption = if self.compact_caption {
+            width(&self.heading, COMPONENT_FONT) / 2.0 + 6.0
+        } else {
+            width(&self.heading, 14.0).max(width(&self.note, 9.0)) / 2.0 + 10.0
+        };
         (
             (half_symbol + self.insets.0).max(half_caption),
             (half_symbol + self.insets.2).max(half_caption),
@@ -228,8 +460,14 @@ impl<'a> Block<'a> {
 
     fn size(&self, scale: f32) -> (f32, f32) {
         let (left, right) = self.horizontal_space(scale);
-        let rows = self.groups[0].len().max(self.groups[1].len());
-        let min_height = 60.0 + rows.saturating_sub(1) as f32 * self.spacing;
+        let base: f32 = if self.compact_caption { 18.0 } else { 60.0 };
+        let mut min_height = base;
+        for group in &self.groups[..2] {
+            if !group.is_empty() {
+                let limits = lead_row_limits(group, 0.0, self.spacing, self.font_size);
+                min_height = min_height.max(base - limits[0]);
+            }
+        }
         (
             left + right,
             min_height.max(self.template.size.1 * scale + self.insets.1 + self.insets.3),
@@ -279,6 +517,32 @@ fn pack(sizes: &[(f32, f32)], (available_width, available_height): Point) -> Opt
     Some(positions)
 }
 
+fn align_columns(positions: &mut [Point], blocks: &[Block<'_>], scales: &[f32], page_width: f32) {
+    let mut aligned = positions.to_vec();
+    let (mut index, mut x) = (0, 0.0);
+    while index < positions.len() {
+        let end = index + positions[index..].partition_point(|point| point.0 == positions[index].0);
+        let spaces: Vec<_> = blocks[index..end]
+            .iter()
+            .zip(&scales[index..end])
+            .map(|(block, scale)| block.horizontal_space(*scale))
+            .collect();
+        let (left, right) = spaces
+            .iter()
+            .copied()
+            .reduce(|a, b| (a.0.max(b.0), a.1.max(b.1)))
+            .unwrap();
+        for (point, (inset, _)) in aligned[index..end].iter_mut().zip(spaces) {
+            point.0 = x + left - inset;
+        }
+        x += left + right + 12.0;
+        index = end;
+    }
+    if x - 12.0 <= page_width {
+        positions.copy_from_slice(&aligned);
+    }
+}
+
 fn layout(
     blocks: &[Block<'_>],
     (page_width, page_height): Point,
@@ -294,19 +558,72 @@ fn layout(
             .zip(&scales)
             .map(|(block, scale)| block.size(*scale))
             .collect();
-        if let Some(positions) = pack(&sizes, (page_width, page_height)) {
-            return Ok(positions.into_iter().zip(scales).collect());
-        }
-        let columns: Vec<_> = sizes.iter().map(|&(w, h)| (h, w)).collect();
-        if let Some(positions) = pack(&columns, (page_height, page_width)) {
-            return Ok(positions
-                .into_iter()
-                .map(|(y, x)| (x, y))
-                .zip(scales)
-                .collect());
-        }
+        let positions = if let Some(positions) = pack(&sizes, (page_width, page_height)) {
+            positions
+        } else {
+            let columns: Vec<_> = sizes.iter().map(|&(w, h)| (h, w)).collect();
+            let Some(columns) = pack(&columns, (page_height, page_width)) else {
+                continue;
+            };
+            let mut positions: Vec<_> = columns.into_iter().map(|(y, x)| (x, y)).collect();
+            align_columns(&mut positions, blocks, &scales, page_width);
+            positions
+        };
+        let used = positions
+            .iter()
+            .zip(&sizes)
+            .map(|(point, size)| point.0 + size.0)
+            .reduce(f32::max)
+            .unwrap_or(0.0);
+        let offset = (page_width - used) / 2.0;
+        return Ok(positions
+            .into_iter()
+            .map(|(x, y)| (x + offset, y))
+            .zip(scales)
+            .collect());
     }
     bail!("图页 {sheet} 的模块及网络标签空间不足，请将部分模块移至其他图页")
+}
+
+fn draw_inline(
+    page: &mut Canvas,
+    start: Point,
+    elbow: Point,
+    (rail, row): Point,
+    lead: &Lead<'_>,
+    (direction, (clearance, span)): (f32, Point),
+    color: &str,
+) -> Result<f32> {
+    let component = lead.component.as_ref().context("缺少组合元件")?;
+    let Asset::Symbol(svg) = &component.template.asset else {
+        bail!("组合元件缺少符号")
+    };
+    let center = rail + direction * (clearance + span / 2.0);
+    let flipped = (component.far.x - component.near.x) * direction < 0.0;
+    let (w, h) = component.template.size;
+    let middle = (component.near.x + component.far.x) / 2.0;
+    let frame = Box2 {
+        x: center - (if flipped { w - middle } else { middle }) * COMPONENT_SCALE,
+        y: row - component.near.y * COMPONENT_SCALE,
+        w: w * COMPONENT_SCALE,
+        h: h * COMPONENT_SCALE,
+    };
+    let half = (component.far.x - component.near.x).abs() * COMPONENT_SCALE / 2.0;
+    page.wire(start, elbow, (rail, row), color);
+    page.line((rail, row), (center - direction * half, row), color, 1.05);
+    page.symbol(frame, COMPONENT_SCALE, svg, flipped)?;
+    page.text(
+        (center, frame.bottom() + COMPONENT_BASELINE),
+        &component.caption,
+        COMPONENT_FONT,
+        MUTED,
+        Align::Middle,
+    );
+    let rail = rail + direction * (clearance + span);
+    if !lead.name.is_empty() {
+        page.line((center + direction * half, row), (rail, row), color, 1.05);
+    }
+    Ok(rail)
 }
 
 fn draw_device(
@@ -318,9 +635,11 @@ fn draw_device(
 ) -> Result<()> {
     let (dw, dh) = block.size(scale);
     let center = x + block.horizontal_space(scale).0;
-    page.text((center, y + 19.0), &block.heading, 14.0, INK, Align::Middle);
-    page.text((center, y + 32.0), &block.note, 9.0, MUTED, Align::Middle);
-    page.line((x + 10.0, y + 38.0), (x + dw - 10.0, y + 38.0), RULE, 0.5);
+    if !block.compact_caption {
+        page.text((center, y + 19.0), &block.heading, 14.0, INK, Align::Middle);
+        page.text((center, y + 32.0), &block.note, 9.0, MUTED, Align::Middle);
+        page.line((x + 10.0, y + 38.0), (x + dw - 10.0, y + 38.0), RULE, 0.5);
+    }
     let (w, h) = block.template.size;
     let frame = Box2 {
         x: center - w * scale / 2.0,
@@ -329,40 +648,44 @@ fn draw_device(
         h: h * scale,
     };
     match &block.template.asset {
-        Asset::Symbol(svg) => write!(
-            page.0,
-            r#"<g transform="translate({} {}) scale({scale})" font-family="{FONT_NAME}">{svg}</g>"#,
-            frame.x, frame.y
-        )?,
+        Asset::Symbol(svg) => page.symbol(frame, scale, svg, false)?,
         Asset::Photograph(photo) => page.photo(frame, photo),
     }
+    if block.compact_caption {
+        page.text(
+            (center, frame.bottom() + 6.0),
+            &block.heading,
+            COMPONENT_FONT,
+            MUTED,
+            Align::Middle,
+        );
+    }
     let mut marks = Vec::new();
-    for (side, entries) in SIDES.into_iter().zip(&block.groups) {
+    for (side_index, (side, entries)) in SIDES.into_iter().zip(&block.groups).enumerate() {
+        if entries.is_empty() {
+            continue;
+        }
         let vertical = matches!(side, Side::Top | Side::Bottom);
-        let mut entries = entries.clone();
-        entries.sort_by(|(a, _), (b, _)| {
-            if vertical {
-                a.x.total_cmp(&b.x)
-            } else {
-                a.y.total_cmp(&b.y)
-            }
-        });
         let rows = if vertical {
             Vec::new()
         } else {
-            place_rows(
-                entries.iter().map(|(a, _)| frame.y + a.y * scale).collect(),
-                y + 50.0,
+            lead_rows(
+                entries,
+                entries.iter().map(|lead| frame.y + lead.anchor.y * scale),
+                y + if block.compact_caption { 6.0 } else { 50.0 },
                 y + dh - 10.0,
                 block.spacing,
-            )?
+                block.font_size,
+            )
         };
         let count = entries.len();
-        for (index, (anchor, name)) in entries.into_iter().enumerate() {
+        for (index, lead) in entries.iter().enumerate() {
+            let anchor = lead.anchor;
             let start = (frame.x + anchor.x * scale, frame.y + anchor.y * scale);
             let left = side == Side::Left;
             let (row, elbow) = if vertical {
-                let offset = 10.0 + (count - index - 1) as f32 * block.spacing;
+                let (first, step, _) = block.rails[usize::from(side == Side::Bottom)];
+                let offset = first + (count - index - 1) as f32 * step;
                 let row = if side == Side::Top {
                     frame.y - offset
                 } else {
@@ -375,24 +698,41 @@ fn draw_device(
                     (start.0 + if left { -6.0 } else { 6.0 }, start.1),
                 )
             };
-            let rail = if left {
+            let mut rail = if left {
                 frame.x - 20.0
             } else {
                 frame.right() + 20.0
             };
-            page.wire(start, elbow, (rail, row), &plan.external);
-            let (tx, align) = if left {
-                (rail - 5.0, Align::End)
+            let (direction, align) = if left {
+                (-1.0, Align::End)
             } else {
-                (rail + 5.0, Align::Start)
+                (1.0, Align::Start)
             };
-            page.text(
-                (tx, row + center_to_baseline(name, block.font_size)),
-                name,
-                block.font_size,
-                &plan.external,
-                align,
-            );
+            if lead.component.is_some() {
+                rail = draw_inline(
+                    page,
+                    start,
+                    elbow,
+                    (rail, row),
+                    lead,
+                    (direction, block.component_columns[side_index]),
+                    &plan.external,
+                )?;
+            } else {
+                page.wire(start, elbow, (rail, row), &plan.external);
+            }
+            if !lead.name.is_empty() {
+                page.text(
+                    (
+                        rail + direction * 5.0,
+                        row + center_to_baseline(lead.name, block.font_size),
+                    ),
+                    lead.name,
+                    block.font_size,
+                    &plan.external,
+                    align,
+                );
+            }
             marks.push((anchor.pin.as_str(), start));
         }
     }
@@ -548,7 +888,7 @@ pub fn compose(plan: &Plan) -> Result<Vec<Page>> {
         page.line((32.0, 91.0), (810.0, 91.0), RULE, 0.65);
         page.text((32.0, 570.0), &plan.source, 9.0, MUTED, Align::Start);
         page.line((32.0, 550.0), (810.0, 550.0), RULE, 0.65);
-        let blocks = plan.devices.iter().filter(|(device, _)| device.sheet == sheet.id)
+        let blocks = plan.devices.iter().filter(|(device, _)| device.sheet == sheet.id && device.inline_at.is_none())
             .map(|(device, template)| Block::new(device, template, plan)).collect::<Result<Vec<_>>>()?;
         ensure!(!blocks.is_empty(), "图页 {} 缺少配件", sheet.id);
         let edge = if sheet.photo.is_some() { 394.0 } else { 810.0 };
